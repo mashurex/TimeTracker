@@ -37,20 +37,20 @@
 		1DBC3BC814D4A3BF007D8F4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1DBC3BCA14D4A3BF007D8F4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1DBC3BCC14D4A3BF007D8F4A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		1DBC3BD014D4A3BF007D8F4A /* TimeTracker-Info.plist */ = {isa = PBXFileReference; path = "TimeTracker-Info.plist"; sourceTree = "<group>"; };
+		1DBC3BD014D4A3BF007D8F4A /* TimeTracker-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeTracker-Info.plist"; sourceTree = "<group>"; };
 		1DBC3BD214D4A3BF007D8F4A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1DBC3BD414D4A3BF007D8F4A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1DBC3BD614D4A3BF007D8F4A /* TimeTracker-Prefix.pch */ = {isa = PBXFileReference; path = "TimeTracker-Prefix.pch"; sourceTree = "<group>"; };
-		1DBC3BD714D4A3BF007D8F4A /* AxnAppDelegate.h */ = {isa = PBXFileReference; path = AxnAppDelegate.h; sourceTree = "<group>"; };
+		1DBC3BD614D4A3BF007D8F4A /* TimeTracker-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TimeTracker-Prefix.pch"; sourceTree = "<group>"; };
+		1DBC3BD714D4A3BF007D8F4A /* AxnAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AxnAppDelegate.h; sourceTree = "<group>"; };
 		1DBC3BD814D4A3BF007D8F4A /* AxnAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AxnAppDelegate.m; sourceTree = "<group>"; };
 		1DBC3BDB14D4A3BF007D8F4A /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		1DBC3BDD14D4A3BF007D8F4A /* AxnViewController.h */ = {isa = PBXFileReference; path = AxnViewController.h; sourceTree = "<group>"; };
+		1DBC3BDD14D4A3BF007D8F4A /* AxnViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AxnViewController.h; sourceTree = "<group>"; };
 		1DBC3BDE14D4A3BF007D8F4A /* AxnViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AxnViewController.m; sourceTree = "<group>"; };
 		1DBC3BE514D4A3BF007D8F4A /* TimeTrackerTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TimeTrackerTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DBC3BE614D4A3BF007D8F4A /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		1DBC3BEE14D4A3BF007D8F4A /* TimeTrackerTests-Info.plist */ = {isa = PBXFileReference; path = "TimeTrackerTests-Info.plist"; sourceTree = "<group>"; };
+		1DBC3BEE14D4A3BF007D8F4A /* TimeTrackerTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "TimeTrackerTests-Info.plist"; sourceTree = "<group>"; };
 		1DBC3BF014D4A3BF007D8F4A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		1DBC3BF214D4A3BF007D8F4A /* TimeTrackerTests.h */ = {isa = PBXFileReference; path = TimeTrackerTests.h; sourceTree = "<group>"; };
+		1DBC3BF214D4A3BF007D8F4A /* TimeTrackerTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TimeTrackerTests.h; sourceTree = "<group>"; };
 		1DBC3BF314D4A3BF007D8F4A /* TimeTrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TimeTrackerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
