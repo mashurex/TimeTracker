@@ -29,4 +29,6 @@
 @property(assign)   float     hoursLeft;
 @property(assign)   NSInteger featureId;
 
+- (id)initWithDictionary:(NSDictionary *)dic;
+
 @end

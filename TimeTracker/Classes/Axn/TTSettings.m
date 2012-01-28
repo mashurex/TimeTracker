@@ -14,25 +14,16 @@
 
 @implementation TTSettings
 
-@synthesize username;
-@synthesize password;
-@synthesize timeTrackerUrl;
-@synthesize doReminder;
-@synthesize isRecentlyAuthed;
-@synthesize axianProjects;
-
-- (id) init
-{
-	if(self = [super init])
-	{
-		// Do initialization
-	}
-	return self;
-}
+@synthesize username            = _username;
+@synthesize password            = _password;
+@synthesize timeTrackerUrl      = _timeTrackerUrl;
+@synthesize doReminder          = _doReminder;
+@synthesize hasLoggedIn         = _hasLoggedIn;
+@synthesize axianProjects       = _axianProjects;
 
 - (AxnProject *)projectWithId:(NSInteger)projectId
 {
-	for(AxnProject *p in axianProjects)
+	for(AxnProject *p in self.axianProjects)
 	{
 		if(p.projectId == projectId)
 		{
@@ -89,20 +80,21 @@
 - (void)readSettings
 {
 	KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc] initWithIdentifier:sKeyChainIdentifier accessGroup:nil];
-	[self setUsername:[keyChain objectForKey:(id)kSecAttrAccount]];
-	[self setPassword:[keyChain objectForKey:(id)kSecValueData]];
+	self.username = [keyChain objectForKey:(id)kSecAttrAccount];
+	self.password = [keyChain objectForKey:(id)kSecValueData];
 	[keyChain release];
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	[self setDoReminder:[[defaults objectForKey:@"doReminder"] boolValue]];
+	self.doReminder = [[defaults objectForKey:@"doReminder"] boolValue];
 }
 
 - (void)saveSettings
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];		
+	// [defaults setObject:self.username forKey:@"userName"];
 	[defaults setBool:self.doReminder forKey:@"doReminder"];
 	[defaults synchronize];
-    
+	
 	KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc] initWithIdentifier:sKeyChainIdentifier accessGroup:nil];
 	[keyChain setObject:self.username forKey:(id)kSecAttrAccount];
 	[keyChain setObject:self.password forKey:(id)kSecValueData];
@@ -123,12 +115,21 @@
 	[self setPassword:nil];
 }
 
--(void)dealloc
+- (id) init
 {
-	self.username = nil;
-	self.password = nil;
-	self.timeTrackerUrl = nil;
-	self.axianProjects = nil;	
+	if(self = [super init])
+	{
+		// Do initialization
+	}
+	return self;
+}
+
+-(void)dealloc
+{	
+    [_username release];
+    [_password release];
+    [_timeTrackerUrl release];
+    [_axianProjects release];
 	[super dealloc];
 }
 

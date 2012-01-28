@@ -11,9 +11,9 @@
 
 @implementation AxnFeature
 
-@synthesize featureId;
-@synthesize featureName;
-@synthesize featureTasks;
+@synthesize featureId       = _featureId;
+@synthesize featureName     = _featureName;
+@synthesize featureTasks    = _featureTasks;
 
 - (id) init
 {
@@ -36,8 +36,8 @@
 
 -(void)dealloc
 {
-	self.featureName    = nil;
-	self.featureTasks   = nil;
+	[_featureName release];
+	[_featureTasks release];
     [super dealloc];
 }
 

@@ -8,7 +8,6 @@
 
 #import "AxnBaseViewController.h"
 #import "TTSettings.h"
-#import "TTSettingsDelegateProtocol.h"
 #import "AxnProject.h"
 #import "AxnFeature.h"
 #import "AxnTask.h"
@@ -46,7 +45,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [self setTtSettings: [self timeTrackerSettings]];
+   
 }
 
 - (void)viewDidUnload
@@ -63,15 +62,6 @@
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
-}
-
-- (TTSettings *) timeTrackerSettings;
-{
-	id<TTSettingsDelegateProtocol> theDelegate = 
-    (id<TTSettingsDelegateProtocol>) [UIApplication sharedApplication].delegate;
-	TTSettings *settings;
-	settings = (TTSettings *) theDelegate.timeTrackerSettings;
-	return settings;
 }
 
 - (IBAction)textFieldDoneEditing:(id)sender 

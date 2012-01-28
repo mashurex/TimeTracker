@@ -11,25 +11,25 @@
 
 @implementation AxnTimeEntry
 
-@synthesize	timeEntryId;
-@synthesize	calendarId;
+@synthesize	timeEntryId     = _timeEntryId;
+@synthesize	calendarId      = _calendarId;
 
-@synthesize	projectName;
-@synthesize	projectAbbrv;
-@synthesize	projectId;
+@synthesize	projectName     = _projectName;
+@synthesize	projectAbbrv    = _projectAbbrv;
+@synthesize	projectId       = _projectId;
 
-@synthesize	featureName;
-@synthesize	featureId;
+@synthesize	featureName     = _featureName;
+@synthesize	featureId       = _featureId;
 
-@synthesize	taskName;
-@synthesize	taskId;
+@synthesize	taskName        = _taskName;
+@synthesize	taskId          = _taskId;
 
-@synthesize	notes;
-@synthesize	entryDate;
+@synthesize	notes           = _notes;
+@synthesize	entryDate       = _entryDate;
 
-@synthesize	hours;
-@synthesize	isBillable;
-@synthesize	isLocked;
+@synthesize	hours           = _hours;
+@synthesize	isBillable      = _isBillable;
+@synthesize	isLocked        = _isLocked;
 
 - (id) init
 {
@@ -70,22 +70,33 @@
 	return text;
 }
 
+- (NSString *)labelText
+{
+    NSString *name = self.projectName;
+    if([self.projectAbbrv length] >0){ name = self.projectAbbrv; }
+    return name;
+}
+
+- (NSString *)subtitleText
+{
+    return [NSString stringWithFormat:@"%2.1f hrs", self.hours];
+}
+
 - (NSString *)description
 {
-	NSString *desc = [[[NSString alloc] 
-            initWithFormat:@"{\"projectName\":\"%@\",\"featureName\":\"%@\",\"taskName\":\"%@\",\"hours\":%2.1f}", 
-			projectName, featureName, taskName, hours] autorelease];
-	return desc;
+	return [NSString 
+            stringWithFormat:@"{\"projectName\":\"%@\",\"featureName\":\"%@\",\"taskName\":\"%@\",\"hours\":%2.1f}", 
+			projectName, featureName, taskName, hours];
 }
 
 - (void)dealloc 
 {
-	projectName     = nil;
-	projectAbbrv    = nil;
-	featureName     = nil;
-	taskName        = nil;	
-	notes           = nil;
-	entryDate       = nil;
+	[_projectName release];
+	[_projectAbbrv release];
+	[_featureName release];
+	[_taskName release];
+	[_notes release];
+	[_entryDate release];
     [super dealloc];
 }
 

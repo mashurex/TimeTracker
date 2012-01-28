@@ -12,10 +12,11 @@
 #define sAxianIncPrepend @"Axian, Inc - "
 
 @implementation AxnProject
-@synthesize projectName;
-@synthesize projectId;
-@synthesize projectFeatures;
-@synthesize projectAbbrv;
+
+@synthesize projectName         = _projectName;
+@synthesize projectId           = _projectId;
+@synthesize projectFeatures     = _projectFeatures;
+@synthesize projectAbbrv        = _projectAbbrv;
 
 - (id) init
 {
@@ -40,7 +41,7 @@
 			self.projectAbbrv	= [dic objectForKey:@"ProjectAbbreviation"];
 		}
 		
-		if(self.projectAbbrv == nil)
+		if((self.projectAbbrv == nil)||([self.projectAbbrv length] < 1))
 		{
 			// TODO: auto generate an abbrv if none is set
 			self.projectAbbrv = self.displayName;
@@ -71,8 +72,9 @@
 
 -(void)dealloc
 {
-	self.projectName        = nil;
-	self.projectFeatures    = nil;
+	[_projectName release];
+	[_projectFeatures release];
+    [_projectAbbrv release];
     [super dealloc];
 }
 

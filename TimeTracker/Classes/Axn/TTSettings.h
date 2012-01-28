@@ -28,16 +28,16 @@
 @property(nonatomic, copy)      NSString    *username;
 @property(nonatomic, copy)      NSString    *password;
 @property(nonatomic, copy)      NSString    *timeTrackerUrl;
-@property(nonatomic, assign)    BOOL        isRecentlyAuthed;
+@property(nonatomic, assign)    BOOL        hasLoggedIn;
 @property(nonatomic, assign)    BOOL        doReminder;
 @property(nonatomic, copy)      NSArray     *axianProjects;
 
--(BOOL)hasCredentials;
--(AxnProject *)projectWithId:(NSInteger)projectId;
--(AxnFeature *)featureForProject:(NSInteger)projectId withId:(NSInteger)featureId;
--(AxnTask *)taskForProject:(NSInteger)projectId forFeature:(NSInteger)featureId withId:(NSInteger)taskId;
--(void)saveSettings;
--(void)readSettings;
--(void)clearSettings;
+- (BOOL)hasCredentials;
+- (AxnProject *)projectWithId:(NSInteger)projectId;
+- (AxnFeature *)featureForProject:(NSInteger)projectId withId:(NSInteger)featureId;
+- (AxnTask *)taskForProject:(NSInteger)projectId forFeature:(NSInteger)featureId withId:(NSInteger)taskId;
+- (void)saveSettings;
+- (void)readSettings;
+- (void)clearSettings;
 
 @end

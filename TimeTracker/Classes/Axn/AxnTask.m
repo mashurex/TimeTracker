@@ -11,14 +11,14 @@
 
 @implementation AxnTask
 
-@synthesize taskId;
-@synthesize taskName;
-@synthesize budgetedHours;
-@synthesize projectId;
-@synthesize phaseId;
-@synthesize state;
-@synthesize hoursLeft;
-@synthesize featureId;
+@synthesize taskId          = _taskId;
+@synthesize taskName        = _taskName;
+@synthesize budgetedHours   = _budgetedHours;
+@synthesize projectId       = _projectId;
+@synthesize phaseId         = _phaseId;
+@synthesize state           = _state;
+@synthesize hoursLeft       = _hoursLeft;
+@synthesize featureId       = _featureId;
 
 - (id)init
 {
@@ -29,12 +29,12 @@
 	return self;
 }
 
--(id)initWithDictionary: (NSDictionary *)dic
+- (id)initWithDictionary:(NSDictionary *)dic
 {
 	if(self = [super init])
 	{
 		self.taskId			= [[dic objectForKey:@"TaskId"] intValue];
-		self.taskName		= [dic objectForKey:@"task"];
+		self.taskName		=  [dic objectForKey:@"task"];
 		self.budgetedHours	= [[dic objectForKey:@"BudgetedHours"] floatValue];
 		self.projectId		= [[dic objectForKey:@"ProjectId"] integerValue];
 		self.phaseId		= [[dic objectForKey:@"PhaseId"] integerValue];
@@ -47,7 +47,7 @@
 
 -(void)dealloc
 {
-	self.taskName = nil;
+	[_taskName release];
     [super dealloc];
 }
 

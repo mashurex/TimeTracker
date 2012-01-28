@@ -31,7 +31,6 @@
 	BOOL		isLocked;
 }
 
-- (NSString*) rowText;
 @property(nonatomic, assign)	NSInteger	timeEntryId;
 @property(nonatomic, assign)	NSInteger	calendarId;
 @property(nonatomic, copy)		NSString*	projectName;
@@ -48,6 +47,8 @@
 @property(nonatomic, assign)	BOOL		isLocked;
 
 - (id)initWithDictionary: (NSDictionary *)dic;
-
+- (NSString *)rowText;
+- (NSString *)labelText;
+- (NSString *)subtitleText;
 
 @end
