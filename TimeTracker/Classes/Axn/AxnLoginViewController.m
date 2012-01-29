@@ -1,14 +1,18 @@
 //
-//  LoginViewController.m
+//  AxnLoginViewController.m
 //  TimeTracker
 //
 //  Created by Mustafa Ashurex on 1/25/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Axian, Inc. All rights reserved.
 //
 
-#import "LoginViewController.h"
+#import "AxnLoginViewController.h"
 
-@implementation LoginViewController
+@implementation AxnLoginViewController
+
+@synthesize btnLogin    = _btnLogin;
+@synthesize txtPassword = _txtPassword;
+@synthesize txtUsername = _txtUsername;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -29,32 +33,100 @@
 
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
-/*
-// Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 }
-*/
+
 
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
+    self.btnLogin = nil;
+    self.txtUsername = nil;
+    self.txtPassword = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (IBAction)resignAllResponders:(id)sender 
+{
+    [self.txtUsername resignFirstResponder];
+    [self.txtPassword resignFirstResponder];
+}
+
+- (BOOL) validateInput
+{
+	BOOL isValid = YES;
+	NSString *message = @"";
+	if([self.txtUsername.text length] < 1)
+	{ 
+		message = @"Username is required.";
+		isValid = NO; 
+	}
+	else if([self.txtPassword.text length] < 1)
+	{ 
+		message = @"Password is required.";
+		isValid = NO; 
+	}
+	
+	if(!isValid)
+	{
+		UIAlertView *alert = [[UIAlertView alloc] 
+							  initWithTitle:@"Error"
+							  message:message 
+							  delegate:self 
+							  cancelButtonTitle:@"Ok" 
+							  otherButtonTitles:nil];
+		
+		[alert show];
+		[alert release];
+	}
+	
+	return isValid;
+}
+- (IBAction) buttonLogin_Pressed
+{
+	if(![self validateInput])
+	{ 
+		return;
+	}
+    
+	self.ttSettings.username = self.txtUsername.text;
+	self.ttSettings.password = self.txtPassword.text;
+		
+    ASIHTTPRequest *request = [self createLoginRequest:self.txtUsername.text withPassword:self.txtPassword.text];
+    [request setDelegate:self];
+    [request startAsynchronous];
+}
+
+- (void)requestFinished:(ASIHTTPRequest *)request
+{
+	NSError *error;
+	NSDictionary *jsonData = [self getJsonDataFromResponseString:[request responseString] error:&error];
+	BOOL isValid = [[jsonData objectForKey:sTimeTrackerDataDicKey] boolValue];
+	if(isValid)
+	{
+		self.ttSettings.hasLoggedIn = YES;
+        [self.ttSettings saveSettings];
+		[self dismissModalViewControllerAnimated:YES];
+	}
+	else 
+	{
+		UIAlertView *alert = [[UIAlertView alloc] 
+							  initWithTitle:@"Error"
+							  message:@"Incorrect username/password" 
+							  delegate:self 
+							  cancelButtonTitle:@"Ok" 
+							  otherButtonTitles:nil];
+		
+		[alert show];
+		[alert release];
+	}
 }
 
 @end

@@ -8,37 +8,48 @@
 
 #import <UIKit/UIKit.h>
 #import "TTSettings.h"
+#import "ASIHTTPRequest.h"
 
 #define sUsernameDicKey     @"userName"
 #define sPasswordDicKey     @"password"
+#define sTimeTrackerDataDicKey  @"d"
 
 #define sBaseTimeTrackerUrl @"https://ttstage.axian.com"
-#define sAuthenticateUrl    sBaseTimeTrackerUrl + "/webservices/login.asmx/Authenticate"
-#define sGetProjectsUrl     sBaseTimeTrackerUrl + "/webservices/timeentryservice.asmx/GetProjects"
-#define sGetFeaturesUrl     sBaseTimeTrackerUrl + "/webservices/timeentryservice.asmx/GetFeatures"
-#define sGetTasksUrl        sBaseTimeTrackerUrl + "/webservices/timeentryservice.asmx/GetTasks"
+#define sAuthenticateUrl    sBaseTimeTrackerUrl "/webservices/login.asmx/Authenticate"
+#define sGetProjectsUrl     sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetProjects"
+#define sGetFeaturesUrl     sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetFeatures"
+#define sGetTasksUrl        sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetTasks"
 
 #define kRequest_AuthenticateTag		(int)10
 #define kRequest_FetchProjectsTag		(int)20
 #define kRequest_FetchEntriesTag		(int)30
 #define kRequest_RemoveEntryTag			(int)40
 #define kRequest_ValidateAuthTag		(int)50
+#define kRequest_SaveEntryTag           (int)60
+
 
 #define kDefaultRequestTimeout          (int)15
 
 #define sAuthenticationNeeded @"Authentication needed"
 
 @interface AxnBaseViewController : UIViewController
+<ASIHTTPRequestDelegate>
 {
-    TTSettings *ttSettings;
+    TTSettings  *ttSettings;
+    BOOL        comingFromLogin;
 }
 
 @property (nonatomic, retain) TTSettings *ttSettings;
+@property (nonatomic, assign) BOOL comingFromLogin;
 
-
--(IBAction)textFieldDoneEditing:(id)sender;
--(TTSettings *) timeTrackerSettings;
--(NSString *)convertDateToRequestString: (NSDate *)date;
--(NSString *)todayString;
+- (IBAction)textFieldDoneEditing:(id)sender;
+- (void)requestFailed:(ASIHTTPRequest *)request;
+- (NSString *)todayString;
+- (ASIHTTPRequest *)createPostRequest:(NSURL *)url withParameters:(NSDictionary *)params;
+- (ASIHTTPRequest *)createLoginRequest:(NSString *)username withPassword:(NSString *)password; 
+- (NSArray *)fetchFeatures:(NSInteger)projectId;
+- (NSArray *)fetchTasks:(NSInteger)projectId forFeature:(NSInteger)featureId;
+- (NSString *)convertDateToRequestString: (NSDate *)date;
+- (NSDictionary *)getJsonDataFromResponseString:(NSString *)responseString error:(NSError **)error;
 
 @end

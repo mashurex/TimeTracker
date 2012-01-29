@@ -7,20 +7,25 @@
 //
 
 #import "AxnAppDelegate.h"
+#import "TTSettings.h"
 
 @implementation AxnAppDelegate
 
 @synthesize window = _window;
+@synthesize settings = _settings;
 
 - (void)dealloc
 {
+    [_settings release];
     [_window release];
     [super dealloc];
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
+    self.settings = [[TTSettings alloc] init];
+    [self.settings readSettings];
+    
     return YES;
 }
 							

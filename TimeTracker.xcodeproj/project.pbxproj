@@ -91,6 +91,14 @@
 		1DBC3CD814D4A791007D8F4A /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBC3CD314D4A791007D8F4A /* settings.png */; };
 		1DBC3CD914D4A791007D8F4A /* this-week.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBC3CD414D4A791007D8F4A /* this-week.png */; };
 		1DBC3CDA14D4A791007D8F4A /* today.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DBC3CD514D4A791007D8F4A /* today.png */; };
+		1DBC3D0014D4C07A007D8F4A /* AxnStartupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DBC3CFF14D4C078007D8F4A /* AxnStartupViewController.m */; };
+		1DBC3D2814D4C61E007D8F4A /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2114D4C61A007D8F4A /* CFNetwork.framework */; };
+		1DBC3D2914D4C61E007D8F4A /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2214D4C61A007D8F4A /* libxml2.dylib */; };
+		1DBC3D2A14D4C61E007D8F4A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2314D4C61B007D8F4A /* libz.dylib */; };
+		1DBC3D2B14D4C61E007D8F4A /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2414D4C61C007D8F4A /* MobileCoreServices.framework */; };
+		1DBC3D2C14D4C61E007D8F4A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2514D4C61C007D8F4A /* QuartzCore.framework */; };
+		1DBC3D2D14D4C61E007D8F4A /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2614D4C61D007D8F4A /* Security.framework */; };
+		1DBC3D2E14D4C61E007D8F4A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3D2714D4C61E007D8F4A /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,6 +259,15 @@
 		1DBC3CD314D4A791007D8F4A /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		1DBC3CD414D4A791007D8F4A /* this-week.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "this-week.png"; sourceTree = "<group>"; };
 		1DBC3CD514D4A791007D8F4A /* today.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = today.png; sourceTree = "<group>"; };
+		1DBC3CFE14D4C077007D8F4A /* AxnStartupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxnStartupViewController.h; sourceTree = "<group>"; };
+		1DBC3CFF14D4C078007D8F4A /* AxnStartupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxnStartupViewController.m; sourceTree = "<group>"; };
+		1DBC3D2114D4C61A007D8F4A /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		1DBC3D2214D4C61A007D8F4A /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		1DBC3D2314D4C61B007D8F4A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		1DBC3D2414D4C61C007D8F4A /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		1DBC3D2514D4C61C007D8F4A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		1DBC3D2614D4C61D007D8F4A /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		1DBC3D2714D4C61E007D8F4A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -258,8 +275,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DBC3BC914D4A3BF007D8F4A /* UIKit.framework in Frameworks */,
+				1DBC3D2814D4C61E007D8F4A /* CFNetwork.framework in Frameworks */,
+				1DBC3D2914D4C61E007D8F4A /* libxml2.dylib in Frameworks */,
+				1DBC3D2A14D4C61E007D8F4A /* libz.dylib in Frameworks */,
+				1DBC3D2B14D4C61E007D8F4A /* MobileCoreServices.framework in Frameworks */,
+				1DBC3D2C14D4C61E007D8F4A /* QuartzCore.framework in Frameworks */,
+				1DBC3D2D14D4C61E007D8F4A /* Security.framework in Frameworks */,
+				1DBC3D2E14D4C61E007D8F4A /* SystemConfiguration.framework in Frameworks */,
 				1DBC3BCB14D4A3BF007D8F4A /* Foundation.framework in Frameworks */,
+				1DBC3BC914D4A3BF007D8F4A /* UIKit.framework in Frameworks */,
 				1DBC3BCD14D4A3BF007D8F4A /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -280,6 +304,13 @@
 		1DBC3BB914D4A3BF007D8F4A = {
 			isa = PBXGroup;
 			children = (
+				1DBC3D2114D4C61A007D8F4A /* CFNetwork.framework */,
+				1DBC3D2214D4C61A007D8F4A /* libxml2.dylib */,
+				1DBC3D2314D4C61B007D8F4A /* libz.dylib */,
+				1DBC3D2414D4C61C007D8F4A /* MobileCoreServices.framework */,
+				1DBC3D2514D4C61C007D8F4A /* QuartzCore.framework */,
+				1DBC3D2614D4C61D007D8F4A /* Security.framework */,
+				1DBC3D2714D4C61E007D8F4A /* SystemConfiguration.framework */,
 				1DBC3CCC14D4A6F4007D8F4A /* Default@2x.png */,
 				1DBC3CCA14D4A6F0007D8F4A /* Default.png */,
 				1DBC3CC814D4A6EB007D8F4A /* 114x114.png */,
@@ -484,6 +515,8 @@
 				1DBC3C4C14D4A6C0007D8F4A /* AxnTodayViewController.m */,
 				1DBC3C4D14D4A6C0007D8F4A /* TTSettings.h */,
 				1DBC3C4E14D4A6C0007D8F4A /* TTSettings.m */,
+				1DBC3CFE14D4C077007D8F4A /* AxnStartupViewController.h */,
+				1DBC3CFF14D4C078007D8F4A /* AxnStartupViewController.m */,
 			);
 			path = Axn;
 			sourceTree = "<group>";
@@ -794,6 +827,7 @@
 				1DBC3CC214D4A6C0007D8F4A /* SBJsonTokeniser.m in Sources */,
 				1DBC3CC314D4A6C0007D8F4A /* SBJsonUTF8Stream.m in Sources */,
 				1DBC3CC414D4A6C0007D8F4A /* SBJsonWriter.m in Sources */,
+				1DBC3D0014D4C07A007D8F4A /* AxnStartupViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

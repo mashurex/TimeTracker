@@ -8,7 +8,7 @@
         <scene sceneID="5">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
-                <viewController title="Startup" wantsFullScreenLayout="YES" definesPresentationContext="YES" hidesBottomBarWhenPushed="YES" id="2" customClass="AxnViewController" sceneMemberID="viewController">
+                <viewController title="Startup" wantsFullScreenLayout="YES" hidesBottomBarWhenPushed="YES" id="2" customClass="AxnStartupViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -21,7 +21,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
-                        <segue destination="vuC-Sa-kkg" kind="push" identifier="TabBarSegue" id="RnM-AV-1pD"/>
+                        <segue destination="vuC-Sa-kkg" kind="modal" identifier="TabBarSegue" modalTransitionStyle="flipHorizontal" id="RnM-AV-1pD"/>
                         <segue destination="Shj-Xj-gUA" kind="modal" identifier="StartupLoginSegue" id="FPm-xS-Zhj"/>
                     </connections>
                 </viewController>
@@ -82,7 +82,7 @@
         <scene sceneID="1x5-3Y-baI">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="REx-eT-8yk" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="63h-70-dZo" sceneMemberID="viewController">
+                <viewController id="63h-70-dZo" customClass="AxnProjectsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j3C-g8-Pcs">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -126,7 +126,7 @@
         <scene sceneID="EbB-Do-v5v">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="99y-WG-pF6" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="tZ5-na-7fn" sceneMemberID="viewController">
+                <viewController id="tZ5-na-7fn" customClass="AxnSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xxs-VN-hBp">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -252,7 +252,7 @@
         <scene sceneID="paH-7v-qeq">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Be-3w-t4B" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController storyboardIdentifier="TodayViewController" title="Today" id="cS8-yM-HJx" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TodayViewController" title="Today" id="cS8-yM-HJx" customClass="AxnTodayViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="03l-GE-a12">
                         <rect key="frame" x="0.0" y="20" width="320" height="411"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -336,7 +336,7 @@
         <scene sceneID="AGH-nh-TRj">
             <objects>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EbT-qK-zX4" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController id="Shj-Xj-gUA" sceneMemberID="viewController">
+                <viewController id="Shj-Xj-gUA" customClass="AxnLoginViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Vhf-LO-ASV">
                         <rect key="frame" x="0.0" y="20" width="320" height="460"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -390,8 +390,47 @@
         <image name="today.png" width="18" height="19"/>
     </resources>
     <classes>
-        <class className="AxnViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnViewController.h"/>
+        <class className="AxnBaseViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnBaseViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="textFieldDoneEditing:"/>
+            </relationships>
+        </class>
+        <class className="AxnLoginViewController" superclassName="AxnBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnLoginViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="buttonLogin_Pressed"/>
+                <relationship kind="action" name="resignAllResponders:"/>
+                <relationship kind="outlet" name="btnLogin" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUsername" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="AxnProjectsViewController" superclassName="AxnBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnProjectsViewController.h"/>
+        </class>
+        <class className="AxnSettingsViewController" superclassName="AxnBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnSettingsViewController.h"/>
+            <relationships>
+                <relationship kind="action" name="backgroundTap:"/>
+                <relationship kind="action" name="btnValidateUser_Pressed:"/>
+                <relationship kind="outlet" name="actValidating" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="btnClearSettings" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnSaveSettings" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="btnvalidateUser" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="lblInvalid" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblValid" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="lblValidating" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="switchReminder" candidateClass="UISwitch"/>
+                <relationship kind="outlet" name="txtPassword" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="txtUsername" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="AxnStartupViewController" superclassName="AxnBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnStartupViewController.h"/>
+        </class>
+        <class className="AxnTodayViewController" superclassName="AxnBaseViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AxnTodayViewController.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -400,6 +439,6 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Wcl-WE-YTL"/>
+        <segue reference="k9d-BN-Me8"/>
     </inferredMetricsTieBreakers>
 </document>
