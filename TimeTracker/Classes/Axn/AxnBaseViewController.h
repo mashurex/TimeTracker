@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "TTSettings.h"
 #import "ASIHTTPRequest.h"
+#import "MBProgressHUD.h"
 
 #define sUsernameDicKey     @"userName"
 #define sPasswordDicKey     @"password"
@@ -32,24 +33,34 @@
 
 #define sAuthenticationNeeded @"Authentication needed"
 
+#define sHudMsg_LoginError @"Error logging in!"
+#define sHudMsg_ProjectsError @"Couldn't fetch projects!"
+
 @interface AxnBaseViewController : UIViewController
-<ASIHTTPRequestDelegate>
+<ASIHTTPRequestDelegate, MBProgressHUDDelegate>
 {
-    TTSettings  *ttSettings;
-    BOOL        comingFromLogin;
+    TTSettings      *ttSettings;
+    BOOL            comingFromLogin;
+    MBProgressHUD   *hud;
 }
 
 @property (nonatomic, retain) TTSettings *ttSettings;
 @property (nonatomic, assign) BOOL comingFromLogin;
+@property (nonatomic, retain) MBProgressHUD *hud;
 
 - (IBAction)textFieldDoneEditing:(id)sender;
 - (void)requestFailed:(ASIHTTPRequest *)request;
 - (NSString *)todayString;
 - (ASIHTTPRequest *)createPostRequest:(NSURL *)url withParameters:(NSDictionary *)params;
 - (ASIHTTPRequest *)createLoginRequest:(NSString *)username withPassword:(NSString *)password; 
+- (ASIHTTPRequest *)createFetchProjectsRequest;
 - (NSArray *)fetchFeatures:(NSInteger)projectId;
 - (NSArray *)fetchTasks:(NSInteger)projectId forFeature:(NSInteger)featureId;
 - (NSString *)convertDateToRequestString: (NSDate *)date;
 - (NSDictionary *)getJsonDataFromResponseString:(NSString *)responseString error:(NSError **)error;
+- (void)showHud:(UIView *)view withLabel:(NSString *)text;
+- (void)showSuccessfullyCompletedHud:(NSString *)labelText;
+- (void)hideHud:(NSTimeInterval)delay;
+- (BOOL)requestFailedOnAuth:(ASIHTTPRequest *)request;
 
 @end

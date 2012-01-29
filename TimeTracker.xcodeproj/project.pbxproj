@@ -304,13 +304,6 @@
 		1DBC3BB914D4A3BF007D8F4A = {
 			isa = PBXGroup;
 			children = (
-				1DBC3D2114D4C61A007D8F4A /* CFNetwork.framework */,
-				1DBC3D2214D4C61A007D8F4A /* libxml2.dylib */,
-				1DBC3D2314D4C61B007D8F4A /* libz.dylib */,
-				1DBC3D2414D4C61C007D8F4A /* MobileCoreServices.framework */,
-				1DBC3D2514D4C61C007D8F4A /* QuartzCore.framework */,
-				1DBC3D2614D4C61D007D8F4A /* Security.framework */,
-				1DBC3D2714D4C61E007D8F4A /* SystemConfiguration.framework */,
 				1DBC3CCC14D4A6F4007D8F4A /* Default@2x.png */,
 				1DBC3CCA14D4A6F0007D8F4A /* Default.png */,
 				1DBC3CC814D4A6EB007D8F4A /* 114x114.png */,
@@ -334,6 +327,13 @@
 		1DBC3BC714D4A3BF007D8F4A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1DBC3D2214D4C61A007D8F4A /* libxml2.dylib */,
+				1DBC3D2314D4C61B007D8F4A /* libz.dylib */,
+				1DBC3D2514D4C61C007D8F4A /* QuartzCore.framework */,
+				1DBC3D2614D4C61D007D8F4A /* Security.framework */,
+				1DBC3D2714D4C61E007D8F4A /* SystemConfiguration.framework */,
+				1DBC3D2414D4C61C007D8F4A /* MobileCoreServices.framework */,
+				1DBC3D2114D4C61A007D8F4A /* CFNetwork.framework */,
 				1DBC3BC814D4A3BF007D8F4A /* UIKit.framework */,
 				1DBC3BCA14D4A3BF007D8F4A /* Foundation.framework */,
 				1DBC3BCC14D4A3BF007D8F4A /* CoreGraphics.framework */,

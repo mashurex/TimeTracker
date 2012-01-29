@@ -3,7 +3,7 @@
 //  TimeTracker
 //
 //  Created by Mustafa Ashurex on 1/28/12.
-//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012 Axian, Inc. All rights reserved.
 //
 
 #import "AxnStartupViewController.h"
@@ -33,15 +33,24 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"view did load");
+   
 }
+
 - (void)viewWillAppear:(BOOL)animated
 {
     if(self.comingFromLogin)
     {
         self.comingFromLogin = NO;
-        // TODO: Fetch projects
         
+        self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hud.delegate = self;
+        self.hud.labelText = sFetchingProjectsLabelText;
+        self.hud.removeFromSuperViewOnHide = YES;    
+        [self.hud show: YES];
+
+        ASIHTTPRequest *requestProjects = [self createFetchProjectsRequest];
+        [requestProjects setDelegate:self];
+        [requestProjects startAsynchronous];
     }
 }
 
@@ -50,6 +59,8 @@
     [super viewDidAppear:animated];
     if(([self.ttSettings.username length] > 0)&&([self.ttSettings.password length] > 0))
     {
+        NSLog(@"Logging in %@",self.ttSettings.username);
+        [self showLoggingInHud];
         ASIHTTPRequest *request = [self createLoginRequest:self.ttSettings.username withPassword:self.ttSettings.password];
         [request setDelegate:self];
         [request startAsynchronous];
@@ -64,8 +75,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -74,13 +83,86 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+/**
+ * Perform the actions necessary to segue to the login form
+ */
+- (void)showLoginForm
+{
+    self.comingFromLogin = YES;
+    [self performSegueWithIdentifier:sLoginSegue sender:self];
+}
+
+/**
+ * Initialize and display MBProgressHUD with logging in message
+ */
+- (void)showLoggingInHud
+{
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.delegate = self;
+	self.hud.labelText = @"Logging in...";
+	self.hud.removeFromSuperViewOnHide = YES;    
+	[self.hud show: YES];
+}
+
+/**
+ * Display success message and hide MBProgressHUD that was displayed
+ * via showLoggingInHud
+ */
+- (void)hideLoginHudAfterSuccess
+{
+    self.hud.customView = [[[UIImageView alloc] 
+                            initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] 
+                           autorelease];
+    
+    self.hud.mode = MBProgressHUDModeCustomView;
+    self.hud.labelText = @"Success";
+    [self.hud hide:YES afterDelay:0.75];
+}
+
+/**
+ * ASIHTTPRequest Failed
+ */
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    self.hud.labelText = @"Request failed!";
+    [self hideHud:0.75];
+    [super requestFailed:request];
+    
+    if(([self requestFailedOnAuth:request])||(request.tag == kRequest_AuthenticateTag))
+    {
+        [self showLoginForm];
+    }
+}
+
+/**
+ * ASIHTTPRequest Finished
+ */
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
     NSError *error;
 	NSDictionary *response = [self getJsonDataFromResponseString:[request responseString] error:&error];
     if(!response)
     {
-        NSLog(@"AxnStartupViewController requestFinished error: %@", [error localizedDescription]);
+        if(error)
+        {
+            NSLog(@"AxnStartupViewController requestFinished error: %@", [error localizedDescription]);
+        }
+        
+        if(request.tag == kRequest_AuthenticateTag)
+        {
+            // Couldn't login, show the login form
+            self.hud.labelText = sHudMsg_LoginError;
+            [self hideHud:0.75];
+            [self showLoginForm];
+        }
+        else if(request.tag == kRequest_FetchProjectsTag)
+        {
+            // Even through the request didn't successfully complete,
+            // other views can load projects details, so move on.
+            self.hud.labelText = sHudMsg_ProjectsError;
+            [self hideHud:0.75];
+            [self performSegueWithIdentifier:sTabBarSegue sender:self];
+        }
         return;
     }
     
@@ -90,14 +172,60 @@
         BOOL isValid = [[response objectForKey:sTimeTrackerDataDicKey] boolValue];
         if(isValid)
         {
-            // Valid login, set flag and show tab bar
+            // NSLog(@"Startup: logged in user, fetching projects.");
+            
+            // Login done, change HUD text to fetching projects
+            self.hud.labelText = sFetchingProjectsLabelText;
+            
+            // Valid login, set flag and gather user projects/tasks
             self.ttSettings.hasLoggedIn = YES;
-            [self performSegueWithIdentifier:sTabBarSegue sender:self];
+            
+            ASIHTTPRequest *requestProjects = [self createFetchProjectsRequest];
+            [requestProjects setDelegate:self];
+            [requestProjects startAsynchronous];
         }
-        // Invalid login, show login form
-        else { [self performSegueWithIdentifier:sLoginSegue sender:self]; }
+        else 
+        {
+            // Invalid login, hide HUD and segue to login form
+            [self hideHud:0.0];
+            [self showLoginForm];
+        }
     }
-	
+    // Response is for project entry details
+    else if(request.tag == kRequest_FetchProjectsTag)
+    {
+        // NSLog(@"Startup: projects response, building data");
+        NSMutableArray *projectsArray = [[NSMutableArray alloc] init];
+		// Get all the entry collections from the response
+		NSArray *entries = [response objectForKey:sTimeTrackerDataDicKey];
+
+		// Iterate through them and initialize each TimeEntry object
+		for(int i = 0; i < [entries count]; i++)
+		{
+			NSDictionary *entryDic = [entries objectAtIndex:i];
+			AxnProject *entry = [[AxnProject alloc] initWithDictionary:entryDic];
+			NSArray *features = [self fetchFeatures:entry.projectId];
+			if(features != nil)
+			{
+				for(int j = 0; j < [features count]; j++)
+				{
+					AxnFeature *f = [features objectAtIndex:j];
+					f.featureTasks = [self fetchTasks:entry.projectId forFeature:f.featureId];
+				}
+				entry.projectFeatures = features;
+				[projectsArray addObject:entry];
+				[entry release];		
+			}
+		}
+        
+        // Success - Hide the hud and segue to the rest of the app
+        // NSLog(@"Startup: done, segue to main app");
+		[self hideLoginHudAfterSuccess];
+		self.ttSettings.axianProjects = (NSArray *)projectsArray;
+		[projectsArray release];
+        
+        [self performSegueWithIdentifier:sTabBarSegue sender:self];
+    }	
 }
 
 @end

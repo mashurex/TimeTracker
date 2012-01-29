@@ -40,13 +40,6 @@
 
 #pragma mark - View lifecycle
 
-/*
-// Implement loadView to create a view hierarchy programmatically, without using a nib.
-- (void)loadView
-{
-}
-*/
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -101,13 +94,15 @@
     [txtPassword resignFirstResponder];
 }
 
-// Validates user input, pops up an alert on validation failure
-// Returns YES if valid, NO otherwise
+/**
+ * Validates user input, pops up an alert on validation failure
+ * Returns YES if valid, NO otherwise
+ */
 - (BOOL)isValidSettingsInput
 {
     NSString *msg = [[NSString alloc] initWithString:@""];
-    NSString *username = txtUsername.text;
-    NSString *password = txtPassword.text;
+    NSString *username = self.txtUsername.text;
+    NSString *password = self.txtPassword.text;
     BOOL isValid = NO;
     
     if([username length] == 0)
@@ -132,6 +127,7 @@
         [alert release];
     }
     
+    [msg release];
     return isValid;
 }
 
@@ -166,12 +162,11 @@
     
     if([self isValidSettingsInput])
     {
-        [self showValidatingProcess];
-        NSDictionary *params = [NSDictionary dictionaryWithObjectsAndKeys:
-                                self.txtUsername.text, sUsernameDicKey, 
-                                self.txtPassword.text, sPasswordDicKey,
-                                nil];
-        NSURL *url = [NSURL URLWithString:sAuthenticateUrl];
+        [self showValidatingProcess];  
+        ASIHTTPRequest *request = [self createLoginRequest:self.txtUsername.text 
+                                              withPassword:self.txtPassword.text];
+        [request setDelegate:self];
+        [request startAsynchronous];
         
     }
 }

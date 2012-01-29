@@ -19,15 +19,20 @@
 
 @implementation AxnBaseViewController
 
-@synthesize ttSettings  = _ttSettings;
+@synthesize ttSettings      = _ttSettings;
 @synthesize comingFromLogin = _comingFromLogin;
+@synthesize hud             = _hud;
 
 - (void)viewDidLoad
 {
 	[super viewDidLoad];
 	AxnAppDelegate *delegate = (AxnAppDelegate *)[[UIApplication sharedApplication] delegate];
 	self.ttSettings = delegate.settings;
-    
+}
+
+- (IBAction)textFieldDoneEditing:(id)sender 
+{
+    [sender resignFirstResponder];
 }
 
 -(NSString *)todayString
@@ -41,6 +46,45 @@
 	NSDateFormatter *frmt = [[[NSDateFormatter alloc] init] autorelease];
 	frmt.dateFormat = @"yyyy-MM-dd";
 	return [frmt stringFromDate:date];
+}
+
+- (void)showHud:(UIView *)view withLabel:(NSString *)text
+{
+    NSLog(@"Showing hud with label: %@", text);
+    self.hud = [[MBProgressHUD alloc] initWithView:view];
+	self.hud.delegate = self;
+	self.hud.labelText = text;
+	self.hud.removeFromSuperViewOnHide = YES;    
+    [view addSubview: hud];
+	[self.hud show: YES];
+}
+
+- (void)hideHud:(NSTimeInterval)delay
+{
+    if(!self.hud){ return; }
+    [self.hud hide:YES afterDelay:delay];
+}
+
+/*
+- (void)hudWasHidden 
+{   
+    if(!self.hud){ return; }
+    NSLog(@"Hud was hidden...");
+	// Remove HUD from screen when the HUD was hidden
+	if(self.hud.superview != nil)
+    {
+        [self.hud removeFromSuperview];
+    }
+	[self.hud release];
+}
+*/
+
+- (void)showSuccessfullyCompletedHud:(NSString *)labelText
+{
+    self.hud.customView = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"37x-Checkmark.png"]] autorelease];
+    self.hud.mode = MBProgressHUDModeCustomView;
+    self.hud.labelText = labelText;
+    [self.hud hide:YES afterDelay:0.33];
 }
 
 - (ASIHTTPRequest *)createPostRequest:(NSURL *)url withParameters:(NSDictionary *)params
@@ -62,9 +106,17 @@
 	return request;
 }
 
-- (IBAction)textFieldDoneEditing:(id)sender 
-{
-    [sender resignFirstResponder];
+- (ASIHTTPRequest *)createFetchProjectsRequest
+{		
+	NSString *today = [self todayString];
+	NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:today, @"date", nil];
+    
+	// Create an asynchronous form post to test the login
+	NSURL *url = [NSURL URLWithString:sGetProjectsUrl];
+	ASIHTTPRequest *request = [self createPostRequest:url withParameters:params];
+	[request setTimeOutSeconds:kDefaultRequestTimeout];
+    [request setTag:kRequest_FetchProjectsTag];
+	return request;
 }
 
 - (ASIHTTPRequest *)createLoginRequest:(NSString *)username withPassword:(NSString *)password 
@@ -204,9 +256,26 @@
 	return jsonData;
 }
 
+- (BOOL)requestFailedOnAuth:(ASIHTTPRequest *)request
+{
+    NSError *error = [request error];
+    if(!error){ return false; }
+    
+    NSString *desc = [error localizedDescription];
+    if([desc isEqualToString:sAuthenticationNeeded])
+    {
+        return true;
+    }
+    return false;
+}
+
 - (void)requestFailed:(ASIHTTPRequest *)request
 {
-	// TODO:
+    if(!request){ return; }
+	NSError *error = [request error];
+
+    if(!error){ return; }
+    NSLog(@"HTTP request failed: %@", [error localizedDescription]);
 }
 
 - (void)didReceiveMemoryWarning {
