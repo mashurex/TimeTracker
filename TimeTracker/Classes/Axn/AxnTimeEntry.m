@@ -66,7 +66,7 @@
 	NSString *name = self.projectName;
 	if([self.projectAbbrv length] > 0){ name = self.projectAbbrv; }
 		
-	NSString *text = [NSString stringWithFormat:@"%@ - %2.1f hrs", name, self.hours];
+	NSString *text = [NSString stringWithFormat:@"%@ - %2.2f hrs", name, self.hours];
 	return text;
 }
 
@@ -79,13 +79,13 @@
 
 - (NSString *)subtitleText
 {
-    return [NSString stringWithFormat:@"%2.1f hrs", self.hours];
+    return [NSString stringWithFormat:@"%2.2f hrs", self.hours];
 }
 
 - (NSString *)description
 {
 	return [NSString 
-            stringWithFormat:@"{\"projectName\":\"%@\",\"featureName\":\"%@\",\"taskName\":\"%@\",\"hours\":%2.1f}", 
+            stringWithFormat:@"{\"projectName\":\"%@\",\"featureName\":\"%@\",\"taskName\":\"%@\",\"hours\":%2.2f}", 
 			projectName, featureName, taskName, hours];
 }
 

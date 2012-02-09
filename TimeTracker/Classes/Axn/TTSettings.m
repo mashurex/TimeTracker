@@ -20,6 +20,7 @@
 @synthesize doReminder          = _doReminder;
 @synthesize hasLoggedIn         = _hasLoggedIn;
 @synthesize axianProjects       = _axianProjects;
+@synthesize reminderDate        = _reminderDate;
 
 - (AxnProject *)projectWithId:(NSInteger)projectId
 {
@@ -77,6 +78,22 @@
 	return YES;
 }
 
+- (NSString *)getReminderTimeAsString
+{
+    if(self.reminderDate == nil){ return nil; }
+    NSDateFormatter *frmt = [[[NSDateFormatter alloc] init] autorelease];
+    frmt.dateFormat = @"hh:mm a";
+    return [frmt stringFromDate:self.reminderDate];
+}
+
+- (NSString *)getReminderDateAsString
+{
+    if(self.reminderDate == nil){ return nil; }
+    NSDateFormatter *frmt = [[[NSDateFormatter alloc] init] autorelease];
+    frmt.dateFormat = sReminderDateFormat;
+    return [frmt stringFromDate:self.reminderDate];
+}
+
 - (void)readSettings
 {
 	KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc] initWithIdentifier:sKeyChainIdentifier accessGroup:nil];
@@ -86,13 +103,21 @@
 	
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	self.doReminder = [[defaults objectForKey:@"doReminder"] boolValue];
+    NSString *dateString = [defaults objectForKey:@"reminderDate"];
+    if((dateString != nil)&&([dateString length] > 0))
+    {
+        NSDateFormatter *frmt = [[NSDateFormatter alloc] init];
+        frmt.dateFormat = sReminderDateFormat;
+        self.reminderDate = [frmt dateFromString:dateString];
+        [frmt release];
+    }
 }
 
 - (void)saveSettings
 {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];		
-	// [defaults setObject:self.username forKey:@"userName"];
 	[defaults setBool:self.doReminder forKey:@"doReminder"];
+    [defaults setValue:[self getReminderDateAsString] forKey:@"reminderDate"];
 	[defaults synchronize];
 	
 	KeychainItemWrapper *keyChain = [[KeychainItemWrapper alloc] initWithIdentifier:sKeyChainIdentifier accessGroup:nil];
@@ -113,6 +138,10 @@
 	
 	[self setUsername:nil];
 	[self setPassword:nil];
+    [self setDoReminder:NO];
+    [self setReminderDate:nil];
+    [self setAxianProjects:nil];
+    [self setHasLoggedIn:NO];
 }
 
 - (id) init

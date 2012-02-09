@@ -9,7 +9,7 @@
 #import "AxnBaseViewController.h"
 #define sLoginSegue @"StartupLoginSegue"
 #define sTabBarSegue @"TabBarSegue"
-#define sFetchingProjectsLabelText @"Fetching projects..."
+#define sFetchingProjectsLabelText @"Fetching Projects"
 
 @interface AxnStartupViewController : AxnBaseViewController
 

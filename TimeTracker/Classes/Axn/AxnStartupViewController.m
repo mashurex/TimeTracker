@@ -67,8 +67,7 @@
     }
     else
     {
-        self.comingFromLogin = YES;
-        [self performSegueWithIdentifier:sLoginSegue sender:self];
+        [self showLoginForm:sLoginSegue sender:self];
     }
 }
 
@@ -84,22 +83,13 @@
 }
 
 /**
- * Perform the actions necessary to segue to the login form
- */
-- (void)showLoginForm
-{
-    self.comingFromLogin = YES;
-    [self performSegueWithIdentifier:sLoginSegue sender:self];
-}
-
-/**
  * Initialize and display MBProgressHUD with logging in message
  */
 - (void)showLoggingInHud
 {
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.delegate = self;
-	self.hud.labelText = @"Logging in...";
+	self.hud.labelText = @"Logging In...";
 	self.hud.removeFromSuperViewOnHide = YES;    
 	[self.hud show: YES];
 }
@@ -116,6 +106,7 @@
     
     self.hud.mode = MBProgressHUDModeCustomView;
     self.hud.labelText = @"Success";
+    self.hud.detailsLabelText = @"";
     [self.hud hide:YES afterDelay:0.75];
 }
 
@@ -130,7 +121,7 @@
     
     if(([self requestFailedOnAuth:request])||(request.tag == kRequest_AuthenticateTag))
     {
-        [self showLoginForm];
+        [self showLoginForm:sLoginSegue sender:self];
     }
 }
 
@@ -141,9 +132,10 @@
 {
     NSError *error;
 	NSDictionary *response = [self getJsonDataFromResponseString:[request responseString] error:&error];
+
     if(!response)
-    {
-        if(error)
+    {        
+        if(error != nil)
         {
             NSLog(@"AxnStartupViewController requestFinished error: %@", [error localizedDescription]);
         }
@@ -153,7 +145,7 @@
             // Couldn't login, show the login form
             self.hud.labelText = sHudMsg_LoginError;
             [self hideHud:0.75];
-            [self showLoginForm];
+            [self showLoginForm:sLoginSegue sender:self];
         }
         else if(request.tag == kRequest_FetchProjectsTag)
         {
@@ -175,7 +167,8 @@
             // NSLog(@"Startup: logged in user, fetching projects.");
             
             // Login done, change HUD text to fetching projects
-            self.hud.labelText = sFetchingProjectsLabelText;
+            self.hud.labelText = @"Loading...";
+            self.hud.detailsLabelText = sFetchingProjectsLabelText;
             
             // Valid login, set flag and gather user projects/tasks
             self.ttSettings.hasLoggedIn = YES;
@@ -188,7 +181,7 @@
         {
             // Invalid login, hide HUD and segue to login form
             [self hideHud:0.0];
-            [self showLoginForm];
+            [self showLoginForm:sLoginSegue sender:self];
         }
     }
     // Response is for project entry details

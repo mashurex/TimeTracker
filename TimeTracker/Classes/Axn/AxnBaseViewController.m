@@ -30,6 +30,24 @@
 	self.ttSettings = delegate.settings;
 }
 
+- (void)didReceiveMemoryWarning {
+    // Releases the view if it doesn't have a superview.
+    [super didReceiveMemoryWarning];
+    
+    // Release any cached data, images, etc. that aren't in use.
+}
+
+- (void)viewDidUnload 
+{
+    [super viewDidUnload];
+}
+
+
+- (void)dealloc 
+{
+    [super dealloc];
+}
+
 - (IBAction)textFieldDoneEditing:(id)sender 
 {
     [sender resignFirstResponder];
@@ -47,6 +65,20 @@
 	frmt.dateFormat = @"yyyy-MM-dd";
 	return [frmt stringFromDate:date];
 }
+
+- (void)showAlert:(NSString *)title withMessage:(NSString *)message
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: title
+                                                      message: message
+                                                     delegate: nil
+                                            cancelButtonTitle: @"OK"
+                                            otherButtonTitles: nil];
+    
+    [alert show];
+    [alert release];    
+}
+
+#pragma mark - HUD methods
 
 - (void)showHud:(UIView *)view withLabel:(NSString *)text
 {
@@ -86,6 +118,9 @@
     self.hud.labelText = labelText;
     [self.hud hide:YES afterDelay:0.33];
 }
+
+
+# pragma mark - HTTP request handlers and convenience methods
 
 - (ASIHTTPRequest *)createPostRequest:(NSURL *)url withParameters:(NSDictionary *)params
 {
@@ -256,6 +291,19 @@
 	return jsonData;
 }
 
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    if(!request){ return; }
+	NSError *error = [request error];
+
+    if(![self requestFailedOnAuth:request])
+    {
+        if(!error){ return; }
+        NSLog(@"HTTP request failed: %@", [error localizedDescription]);
+    }
+    [self hideHud:0.0];
+}
+
 - (BOOL)requestFailedOnAuth:(ASIHTTPRequest *)request
 {
     NSError *error = [request error];
@@ -269,31 +317,14 @@
     return false;
 }
 
-- (void)requestFailed:(ASIHTTPRequest *)request
+
+/**
+ * Perform the actions necessary to segue to the login form
+ */
+- (void)showLoginForm:(NSString *)segueIdentifier sender:(id)sender
 {
-    if(!request){ return; }
-	NSError *error = [request error];
-
-    if(!error){ return; }
-    NSLog(@"HTTP request failed: %@", [error localizedDescription]);
-}
-
-- (void)didReceiveMemoryWarning {
-    // Releases the view if it doesn't have a superview.
-    [super didReceiveMemoryWarning];
-    
-    // Release any cached data, images, etc. that aren't in use.
-}
-
-- (void)viewDidUnload 
-{
-    [super viewDidUnload];
-}
-
-
-- (void)dealloc 
-{
-    [super dealloc];
+    self.comingFromLogin = YES;
+    [self performSegueWithIdentifier:segueIdentifier sender:sender];
 }
 
 

@@ -52,8 +52,13 @@
 
 -(NSString *)displayName
 {
+    if((self.projectAbbrv != nil)&&([self.projectAbbrv length] > 1))
+    {
+        return self.projectAbbrv;
+    }
+    
 	if(self.projectName == nil){ return nil; }
-	
+
 	if([self.projectName length] > [sAxianIncPrepend length])
 	{
 		NSString *pre = [self.projectName substringToIndex:[sAxianIncPrepend length]];

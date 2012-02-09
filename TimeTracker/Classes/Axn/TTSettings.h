@@ -10,7 +10,9 @@
 #import "AxnProject.h"
 #import "AxnFeature.h"
 #import	"AxnTask.h"
+
 #define sKeyChainIdentifier @"TimeTrackerApp"
+#define sReminderDateFormat @"yyyy-MM-dd HH:mm"
 
 @interface TTSettings : NSObject 
 {
@@ -23,6 +25,7 @@
 	BOOL isRecentlyAuthed;
 
 	NSArray *axianProjects;
+    NSDate *reminderDate;
 }
 
 @property(nonatomic, copy)      NSString    *username;
@@ -31,6 +34,7 @@
 @property(nonatomic, assign)    BOOL        hasLoggedIn;
 @property(nonatomic, assign)    BOOL        doReminder;
 @property(nonatomic, copy)      NSArray     *axianProjects;
+@property(nonatomic, copy)      NSDate      *reminderDate;
 
 - (BOOL)hasCredentials;
 - (AxnProject *)projectWithId:(NSInteger)projectId;
@@ -39,5 +43,7 @@
 - (void)saveSettings;
 - (void)readSettings;
 - (void)clearSettings;
+- (NSString *)getReminderDateAsString;
+- (NSString *)getReminderTimeAsString;
 
 @end

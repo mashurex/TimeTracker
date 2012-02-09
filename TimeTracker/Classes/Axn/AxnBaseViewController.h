@@ -20,14 +20,17 @@
 #define sGetProjectsUrl     sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetProjects"
 #define sGetFeaturesUrl     sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetFeatures"
 #define sGetTasksUrl        sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetTasks"
+#define sGetEntriesUrl      sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetTimeEntriesByDate"
+#define sAddTimeUrl			sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/AddTime"
+#define sEditTimeUrl        sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/UpdateTime"
 
 #define kRequest_AuthenticateTag		(int)10
 #define kRequest_FetchProjectsTag		(int)20
 #define kRequest_FetchEntriesTag		(int)30
 #define kRequest_RemoveEntryTag			(int)40
 #define kRequest_ValidateAuthTag		(int)50
-#define kRequest_SaveEntryTag           (int)60
-
+#define kRequest_SaveNewEntryTag        (int)60
+#define kRequest_SaveEditEntryTag       (int)61
 
 #define kDefaultRequestTimeout          (int)15
 
@@ -62,5 +65,6 @@
 - (void)showSuccessfullyCompletedHud:(NSString *)labelText;
 - (void)hideHud:(NSTimeInterval)delay;
 - (BOOL)requestFailedOnAuth:(ASIHTTPRequest *)request;
-
+- (void)showLoginForm:(NSString *)segueIdentifier sender:(id)sender;
+- (void)showAlert:(NSString *)title withMessage:(NSString *)message;
 @end

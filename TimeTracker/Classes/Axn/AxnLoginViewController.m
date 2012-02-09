@@ -53,12 +53,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (IBAction)resignAllResponders:(id)sender 
-{
-    [self.txtUsername resignFirstResponder];
-    [self.txtPassword resignFirstResponder];
-}
-
 - (BOOL) validateInput
 {
 	BOOL isValid = YES;
@@ -89,6 +83,15 @@
 	
 	return isValid;
 }
+
+#pragma mark - Button/UI Events
+
+- (IBAction)resignAllResponders:(id)sender 
+{
+    [self.txtUsername resignFirstResponder];
+    [self.txtPassword resignFirstResponder];
+}
+
 - (IBAction) buttonLogin_Pressed
 {
 	if(![self validateInput])
@@ -103,6 +106,8 @@
     [request setDelegate:self];
     [request startAsynchronous];
 }
+
+#pragma mark - HTTP Requests
 
 - (void)requestFinished:(ASIHTTPRequest *)request
 {
@@ -129,4 +134,24 @@
 	}
 }
 
+- (void)requestFailed:(ASIHTTPRequest *)request
+{
+    [super requestFailed:request];
+    
+    NSString *msg = @"Error logging in.";
+    if([self requestFailedOnAuth:request])
+    {
+       msg = @"Invalid username/password.";
+    }
+    
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle:@"Error" 
+                          message:msg
+                          delegate:self 
+                          cancelButtonTitle:@"Ok" 
+                          otherButtonTitles:nil];
+    [alert show];
+    [alert release];
+    [msg release];
+}
 @end
