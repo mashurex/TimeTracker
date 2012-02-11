@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D08ED6214E3516C00FCF797 /* login-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1D08ED6114E3516C00FCF797 /* login-bg.png */; };
+		1D08ED6414E3562300FCF797 /* sampleRequests.txt in Resources */ = {isa = PBXBuildFile; fileRef = 1D08ED6314E3562300FCF797 /* sampleRequests.txt */; };
 		1D25CD8214DF04A8005CFF2B /* AxnEditTimeEntryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D25CD8114DF04A8005CFF2B /* AxnEditTimeEntryViewController.m */; };
 		1DB0BACE14DA18D000425317 /* AxnThisWeekViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DB0BACD14DA18D000425317 /* AxnThisWeekViewController.m */; };
-		1DB22FD914DD92B4007715B7 /* login-bg.png in Resources */ = {isa = PBXBuildFile; fileRef = 1DB22FD814DD92B4007715B7 /* login-bg.png */; };
 		1DBC3BC914D4A3BF007D8F4A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3BC814D4A3BF007D8F4A /* UIKit.framework */; };
 		1DBC3BCB14D4A3BF007D8F4A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3BCA14D4A3BF007D8F4A /* Foundation.framework */; };
 		1DBC3BCD14D4A3BF007D8F4A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DBC3BCC14D4A3BF007D8F4A /* CoreGraphics.framework */; };
@@ -271,11 +272,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1D08ED6114E3516C00FCF797 /* login-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "login-bg.png"; sourceTree = "<group>"; };
+		1D08ED6314E3562300FCF797 /* sampleRequests.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sampleRequests.txt; sourceTree = "<group>"; };
 		1D25CD8014DF04A8005CFF2B /* AxnEditTimeEntryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxnEditTimeEntryViewController.h; sourceTree = "<group>"; };
 		1D25CD8114DF04A8005CFF2B /* AxnEditTimeEntryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxnEditTimeEntryViewController.m; sourceTree = "<group>"; };
 		1DB0BACC14DA18D000425317 /* AxnThisWeekViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AxnThisWeekViewController.h; sourceTree = "<group>"; };
 		1DB0BACD14DA18D000425317 /* AxnThisWeekViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AxnThisWeekViewController.m; sourceTree = "<group>"; };
-		1DB22FD814DD92B4007715B7 /* login-bg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "login-bg.png"; path = "../../../../../Desktop/login-bg.png"; sourceTree = "<group>"; };
 		1DBC3BC414D4A3BF007D8F4A /* TimeTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TimeTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DBC3BC814D4A3BF007D8F4A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		1DBC3BCA14D4A3BF007D8F4A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -542,6 +544,7 @@
 				1DBC3BDD14D4A3BF007D8F4A /* AxnViewController.h */,
 				1DBC3BDE14D4A3BF007D8F4A /* AxnViewController.m */,
 				1DBC3BCF14D4A3BF007D8F4A /* Supporting Files */,
+				1D08ED6314E3562300FCF797 /* sampleRequests.txt */,
 			);
 			path = TimeTracker;
 			sourceTree = "<group>";
@@ -831,7 +834,7 @@
 		1DBC3CCE14D4A733007D8F4A /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				1DB22FD814DD92B4007715B7 /* login-bg.png */,
+				1D08ED6114E3516C00FCF797 /* login-bg.png */,
 				1DBC3CD114D4A791007D8F4A /* gears.png */,
 				1DBC3CD214D4A791007D8F4A /* projects.png */,
 				1DBC3CD314D4A791007D8F4A /* settings.png */,
@@ -1137,7 +1140,8 @@
 				1DBC3CD814D4A791007D8F4A /* settings.png in Resources */,
 				1DBC3CD914D4A791007D8F4A /* this-week.png in Resources */,
 				1DBC3CDA14D4A791007D8F4A /* today.png in Resources */,
-				1DB22FD914DD92B4007715B7 /* login-bg.png in Resources */,
+				1D08ED6214E3516C00FCF797 /* login-bg.png in Resources */,
+				1D08ED6414E3562300FCF797 /* sampleRequests.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

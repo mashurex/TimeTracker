@@ -69,10 +69,10 @@
 - (void)showAlert:(NSString *)title withMessage:(NSString *)message
 {
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle: title
-                                                      message: message
-                                                     delegate: nil
-                                            cancelButtonTitle: @"OK"
-                                            otherButtonTitles: nil];
+                                      message: message
+                                     delegate: nil
+                            cancelButtonTitle: @"OK"
+                            otherButtonTitles: nil];
     
     [alert show];
     [alert release];    
@@ -82,7 +82,7 @@
 
 - (void)showHud:(UIView *)view withLabel:(NSString *)text
 {
-    NSLog(@"Showing hud with label: %@", text);
+    // NSLog(@"Showing hud with label: %@", text);
     self.hud = [[MBProgressHUD alloc] initWithView:view];
 	self.hud.delegate = self;
 	self.hud.labelText = text;
@@ -253,7 +253,7 @@
 		// Json data as a dictionary
 		NSDictionary *responseData = [jsonParser objectWithString:responseString error:&error];
 		
-		NSLog(@"Task response: %@", responseString);
+		// NSLog(@"Task response: %@", responseString);
 		
 		NSMutableArray *tasksArray = [[NSMutableArray alloc] init];
 		// Get all the entry collections
@@ -274,8 +274,8 @@
 			}
 		}
 		
-		NSLog(@"Found %i tasks for project (%i) feature (%i)", 
-              [tasksArray count], projectId, featureId);
+		//NSLog(@"Found %i tasks for project (%i) feature (%i)", 
+        //      [tasksArray count], projectId, featureId);
 		
 		return tasksArray;
 	}
@@ -283,6 +283,11 @@
 
 -(NSDictionary *)getJsonDataFromResponseString:(NSString *)responseString error:(NSError **)error
 {
+    if([responseString isEqualToString:sNullDataResponse])
+    {
+        return nil;
+    }
+    
 	// Json parser
 	SBJsonParser *json = [[SBJsonParser new] autorelease];
 	// NSLog(@"Parsing response: %@ (length %d)", responseString, [responseString length]);
@@ -298,8 +303,8 @@
 
     if(![self requestFailedOnAuth:request])
     {
-        if(!error){ return; }
-        NSLog(@"HTTP request failed: %@", [error localizedDescription]);
+        NSLog(@"HTTP request failed: %@", [request responseString]);
+        if(error){ NSLog(@"Error: %@", [error localizedDescription]); }
     }
     [self hideHud:0.0];
 }

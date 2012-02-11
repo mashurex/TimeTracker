@@ -59,7 +59,7 @@
     [super viewDidAppear:animated];
     if(([self.ttSettings.username length] > 0)&&([self.ttSettings.password length] > 0))
     {
-        NSLog(@"Logging in %@",self.ttSettings.username);
+        // NSLog(@"Logging in %@",self.ttSettings.username);
         [self showLoggingInHud];
         ASIHTTPRequest *request = [self createLoginRequest:self.ttSettings.username withPassword:self.ttSettings.password];
         [request setDelegate:self];
@@ -135,10 +135,9 @@
 
     if(!response)
     {        
-        if(error != nil)
-        {
-            NSLog(@"AxnStartupViewController requestFinished error: %@", [error localizedDescription]);
-        }
+
+        NSLog(@"AxnStartupViewController requestFinished error: %@", [request responseString]);
+        
         
         if(request.tag == kRequest_AuthenticateTag)
         {

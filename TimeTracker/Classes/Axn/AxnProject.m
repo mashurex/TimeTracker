@@ -27,7 +27,7 @@
 	return self;
 }
 
--(id)initWithDictionary: (NSDictionary *)dic
+- (id)initWithDictionary: (NSDictionary *)dic
 {
 	if(self = [super init])
 	{
@@ -43,14 +43,39 @@
 		
 		if((self.projectAbbrv == nil)||([self.projectAbbrv length] < 1))
 		{
-			// TODO: auto generate an abbrv if none is set
-			self.projectAbbrv = self.displayName;
+			self.projectAbbrv = [self generateDisplayName:self.projectName];
 		}
 	}
 	return self;
 }
 
--(NSString *)displayName
+- (NSString *)generateDisplayName:(NSString *)name
+{
+    if([self.projectAbbrv length] > 1)
+    {
+        return self.projectAbbrv;
+    }
+    
+    NSArray *split = [name componentsSeparatedByString:@" - "];
+    // Example title: Nike - Nike-WO 86 Nike Plus BI Dev - Senior
+    if([split count] == 3)
+    {
+        self.projectAbbrv =[NSString stringWithFormat:@"%@ - %@", [split objectAtIndex:1], [split objectAtIndex:2]];
+    }
+    // Example title: Axian, Inc - AX-103 IT Projects
+    else if([split count] == 2)
+    {
+        self.projectAbbrv = [split objectAtIndex:1];
+    }
+    else
+    {
+        self.projectAbbrv = name;
+    }
+
+    return self.projectAbbrv;
+}
+
+- (NSString *)displayName
 {
     if((self.projectAbbrv != nil)&&([self.projectAbbrv length] > 1))
     {
@@ -67,15 +92,16 @@
 			return [self.projectName substringFromIndex:[sAxianIncPrepend length]];
 		}
 	}
+    
 	return self.projectName;
 }
 
--(NSString *)description
+- (NSString *)description
 {
 	return [NSString stringWithFormat:@"%@ (%i)", self.displayName, self.projectId]; 
 }
 
--(void)dealloc
+- (void)dealloc
 {
 	[_projectName release];
 	[_projectFeatures release];

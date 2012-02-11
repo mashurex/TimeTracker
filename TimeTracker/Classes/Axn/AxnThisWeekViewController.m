@@ -221,7 +221,7 @@
 	NSString *strDate = [self convertDateToRequestString:date];
 	NSDictionary *requestParams = [[NSDictionary alloc] initWithObjectsAndKeys:strDate, @"date", nil];
 	NSURL *url =[NSURL URLWithString: sGetEntriesUrl];
-	NSLog(@"Fetching entry for date: %@", strDate);
+	// NSLog(@"Fetching entry for date: %@", strDate);
 	ASIHTTPRequest *request = [self createPostRequest:url withParameters:requestParams];
 	[request setDelegate:self];
 	[request setTag: kRequest_FetchEntriesTag];
@@ -249,119 +249,115 @@
 {	
 	// Error object for string to json process
 	NSError *error = nil;
-	
-	// Json parser
-	// SBJsonParser *json = [[SBJsonParser new] autorelease];
-	
+		
 	// Response string from the HTTP request
 	NSString *responseString = [request responseString];
-    
-    NSLog(@"Response: %@", responseString);
-    
-	//NSLog(@"WeeklyViewController: requestFinished withResponse: %@ (length %i)",responseString, [responseString length]);
-	
-	// Json data as a dictionary
-	// NSDictionary *jsonData = [json objectWithString:responseString error:&error];
+        
     NSDictionary *jsonData = [self getJsonDataFromResponseString:responseString error:&error];
-	NSArray *dData = [jsonData objectForKey:sTimeTrackerDataDicKey];
-    
-	
-	if(dData == nil)
-	{
-		NSLog(@"WeeklyViewController: requestFinished - No or invalid data returned.");
-        if(error != nil)
+    if(!jsonData)
+    {
+        [self showAlert:@"Error" withMessage:@"Could not fetch data."];
+    }
+    else
+    {
+        NSArray *dData = [jsonData objectForKey:sTimeTrackerDataDicKey];
+        
+        
+        if(!dData)
         {
-            NSLog(@"WeeklyViewController: requestFinished - Error: %@", [error localizedDescription]);
+            NSLog(@"WeeklyViewController: requestFinished - No or invalid data returned.");
+            if(error)
+            {
+                NSLog(@"WeeklyViewController: requestFinished - Error: %@", [error localizedDescription]);
+            }
         }
-	}
-	else 
-	{
-		// Hold TimeEntry objects as they are compiled
-		NSMutableDictionary *dictProjects = [[NSMutableDictionary alloc] init];
-		NSMutableDictionary *dictHours = [[NSMutableDictionary alloc] init];
-        
-		// Date formatter for creating an entry date from the response
-		NSDateFormatter *df = [[NSDateFormatter alloc] init];
-		[df setDateFormat:@"yyyyMMdd"];
+        else 
+        {
+            // Hold TimeEntry objects as they are compiled
+            NSMutableDictionary *dictProjects = [[NSMutableDictionary alloc] init];
+            NSMutableDictionary *dictHours = [[NSMutableDictionary alloc] init];
+            
+            // Date formatter for creating an entry date from the response
+            NSDateFormatter *df = [[NSDateFormatter alloc] init];
+            [df setDateFormat:@"yyyyMMdd"];
 
-		// Each item in the array will return an entry date, but we only need
-		// to set one (they're all the same!)
-		NSDate *entryDate = nil;
-		NSString *dateKeyString = nil;
-		
-		int i;
-		for(i = 0; i < [dData count]; i++)
-		{
-			NSDictionary	*dicEntryData	= [dData objectAtIndex:i];
-			NSString		*strEntryDate	= [[dicEntryData objectForKey:@"CalendarId"] stringValue];
+            // Each item in the array will return an entry date, but we only need
+            // to set one (they're all the same!)
+            NSDate *entryDate = nil;
+            NSString *dateKeyString = nil;
             
-			if(entryDate == nil)
-			{
-				NSLog(@"WVC: requestFinished - Setting entryDate to: %@", strEntryDate);
-				
-				dateKeyString = strEntryDate;
-			}
-			
-            entryDate = [df dateFromString:strEntryDate];
-            NSLog(@"Response for date: %@", strEntryDate);
-			AxnProject	*proj			= [[AxnProject alloc] initWithDictionary:dicEntryData];
-			float			hours			= [[dicEntryData objectForKey:@"Hours"] floatValue];
-			// Turn the project id into a string so we can use it as a key for the dictionaries
-			NSString		*strProjectId	= [NSString stringWithFormat:@"%i", proj.projectId];
-            
-			// Check and see if we have already stored time for the project we are looking at
-			AxnProject *existingProject = [dictProjects objectForKey:strProjectId];			
-			if(existingProject == nil)
-			{
-				// No project was found, push in a new one
-				//NSLog(@"Adding project (%@) with %2.1f hours.", proj, hours);
-				[dictProjects setObject:proj forKey:strProjectId];
-				[dictHours setObject:[NSNumber numberWithFloat:hours] forKey:strProjectId];
-			}
-			else 
-			{
-				// Project was found, add hours to what is already in there
-				float existingHours = [[dictHours objectForKey:strProjectId] floatValue] + hours;
-				//NSLog(@"Found project (%@) already, adding %2.1f to existing %2.1f hours.", proj, hours, existingHours);				
-				[dictHours setObject:[NSNumber numberWithFloat:existingHours] forKey:strProjectId]; 
-			}
-            
-			[proj release];			
-		}
-        
-		// If we didn't get an entryDate (for whatever reason) don't bother
-		// even trying to put the results into storage- we wouldn't know where
-		// to put them.
-		if(entryDate != nil)
-		{
-			int idx = [self getDateArrayPosition:entryDate];
-			if(idx < 0) { NSLog(@"No index returned for date: %@", entryDate); }
-			else 
-			{
-				// NSLog(@"Date index is %i for date: %@", idx, entryDate);
-				NSMutableArray *dayEntries = [[NSMutableArray alloc] init];
-				for(NSString *key in dictProjects)
-				{
-					NSDictionary *projectEntry = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                                  [dictProjects objectForKey:key], @"project",
-                                                  [dictHours objectForKey:key],@"hours", nil];
-					[dayEntries addObject:projectEntry];
-					[projectEntry release];
-				}
+            int i;
+            for(i = 0; i < [dData count]; i++)
+            {
+                NSDictionary	*dicEntryData	= [dData objectAtIndex:i];
+                NSString		*strEntryDate	= [[dicEntryData objectForKey:@"CalendarId"] stringValue];
                 
-                // Keeps the controller from refreshing the data every time you come back to it
-				self.hasLoadedEntries = YES;
+                if(!entryDate)
+                {
+                    // NSLog(@"WVC: requestFinished - Setting entryDate to: %@", strEntryDate);
+                    dateKeyString = strEntryDate;
+                }
                 
-				[self.weekEntries setObject:dayEntries forKey:dateKeyString];
-				[dayEntries release];
-			}
-		}
-		
-		[df release];
-		[dictProjects release];
-		[dictHours release];
-	}
-	
+                entryDate                       = [df dateFromString:strEntryDate];
+                AxnProject      *proj			= [[AxnProject alloc] initWithDictionary:dicEntryData];
+                float			hours			= [[dicEntryData objectForKey:@"Hours"] floatValue];
+                // Turn the project id into a string so we can use it as a key for the dictionaries
+                NSString		*strProjectId	= [NSString stringWithFormat:@"%i", proj.projectId];
+                
+                // Check and see if we have already stored time for the project we are looking at
+                AxnProject *existingProject = [dictProjects objectForKey:strProjectId];			
+                if(existingProject == nil)
+                {
+                    // No project was found, push in a new one
+                    //NSLog(@"Adding project (%@) with %2.1f hours.", proj, hours);
+                    [dictProjects setObject:proj forKey:strProjectId];
+                    [dictHours setObject:[NSNumber numberWithFloat:hours] forKey:strProjectId];
+                }
+                else 
+                {
+                    // Project was found, add hours to what is already in there
+                    float existingHours = [[dictHours objectForKey:strProjectId] floatValue] + hours;
+                    //NSLog(@"Found project (%@) already, adding %2.1f to existing %2.1f hours.", proj, hours, existingHours);				
+                    [dictHours setObject:[NSNumber numberWithFloat:existingHours] forKey:strProjectId]; 
+                }
+                
+                [proj release];			
+            }
+            
+            // If we didn't get an entryDate (for whatever reason) don't bother
+            // even trying to put the results into storage- we wouldn't know where
+            // to put them.
+            if(entryDate != nil)
+            {
+                int idx = [self getDateArrayPosition:entryDate];
+                if(idx < 0) { NSLog(@"No index returned for date: %@", entryDate); }
+                else 
+                {
+                    // NSLog(@"Date index is %i for date: %@", idx, entryDate);
+                    NSMutableArray *dayEntries = [[NSMutableArray alloc] init];
+                    for(NSString *key in dictProjects)
+                    {
+                        NSDictionary *projectEntry = [[NSDictionary alloc] initWithObjectsAndKeys:
+                                                      [dictProjects objectForKey:key], @"project",
+                                                      [dictHours objectForKey:key],@"hours", nil];
+                        [dayEntries addObject:projectEntry];
+                        [projectEntry release];
+                    }
+                    
+                    // Keeps the controller from refreshing the data every time you come back to it
+                    self.hasLoadedEntries = YES;
+                    
+                    [self.weekEntries setObject:dayEntries forKey:dateKeyString];
+                    [dayEntries release];
+                }
+            }
+            
+            [df release];
+            [dictProjects release];
+            [dictHours release];
+        }
+    }
+    
 	[self decrementOutstandingReuqests];
 	
 	if(self.outstandingRequests == 0)

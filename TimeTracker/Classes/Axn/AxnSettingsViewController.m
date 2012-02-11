@@ -330,7 +330,7 @@
 	NSError *error = nil;
     NSDictionary *response = [self getJsonDataFromResponseString:[request responseString] error:&error];
 	
-    if(response == nil)
+    if(!response)
 	{
 		NSLog(@"Error parsing response for: %@", [request responseString]);
         [self hideValidatingLabels];

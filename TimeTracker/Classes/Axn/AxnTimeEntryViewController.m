@@ -586,40 +586,46 @@
 	NSError *error = nil;
     NSDictionary *jsonData = [self getJsonDataFromResponseString:[request responseString] error:&error];
     
-	if(jsonData == nil)
+	if(!jsonData)
 	{
 		NSLog(@"Error saving time entry: %@",[request responseString]);
         [self showAlert:@"Error" withMessage:@"Error saving entry."];
 	}
 	else 
 	{
+        NSLog(@"Response: %@", [request responseString]);
         NSDictionary *data = [jsonData objectForKey:sTimeTrackerDataDicKey];
-        
-        NSLog(@"Received response: %@", [request responseString]);
-		NSInteger newId = [((NSString *)[data objectForKey:@"TimeEntryId"]) intValue];
-		
-		self.isValidated = YES;
-		
-		AxnTimeEntry *savedEntry = [[AxnTimeEntry alloc] init];
-		savedEntry.timeEntryId = newId;
-		savedEntry.projectName = self.curProject.projectName;
-		savedEntry.projectAbbrv = [data objectForKey:@"ProjectAbbreviation"];
-		savedEntry.projectId = self.curProject.projectId;
-		savedEntry.featureName = self.curFeature.featureName;
-		savedEntry.featureId = self.curFeature.featureId;
-		savedEntry.taskName = self.curTask.taskName;
-		savedEntry.taskId = self.curTask.taskId;
-		savedEntry.calendarId = [[data objectForKey:@"CalendarId"] integerValue];
-		savedEntry.isBillable = [[data objectForKey:@"IsBillable"] boolValue];
-		savedEntry.isLocked = [[data objectForKey:@"Locked"] boolValue];
-		savedEntry.hours = self.curHours;
-		savedEntry.notes = self.curDescription;
-		
-		self.timeEntry = savedEntry;
+        if(!data)
+        {
+            [self showAlert:@"Error" withMessage:@"Error saving time entry."];
+        }
+        else
+        {
+            NSInteger newId = [((NSString *)[data objectForKey:@"TimeEntryId"]) intValue];
+            
+            self.isValidated = YES;
+            
+            AxnTimeEntry *savedEntry = [[AxnTimeEntry alloc] init];
+            savedEntry.timeEntryId = newId;
+            savedEntry.projectName = self.curProject.projectName;
+            savedEntry.projectAbbrv = [data objectForKey:@"ProjectAbbreviation"];
+            savedEntry.projectId = self.curProject.projectId;
+            savedEntry.featureName = self.curFeature.featureName;
+            savedEntry.featureId = self.curFeature.featureId;
+            savedEntry.taskName = self.curTask.taskName;
+            savedEntry.taskId = self.curTask.taskId;
+            savedEntry.calendarId = [[data objectForKey:@"CalendarId"] integerValue];
+            savedEntry.isBillable = [[data objectForKey:@"IsBillable"] boolValue];
+            savedEntry.isLocked = [[data objectForKey:@"Locked"] boolValue];
+            savedEntry.hours = self.curHours;
+            savedEntry.notes = self.curDescription;
+            
+            self.timeEntry = savedEntry;
 
-		[savedEntry release];
-        [[self delegate] addSavedTimeEntry:self.timeEntry];
-		[self.navigationController popViewControllerAnimated:YES];
+            [savedEntry release];
+            [[self delegate] addSavedTimeEntry:self.timeEntry];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
 	}
 }
 

@@ -24,5 +24,6 @@
 
 - (NSString *)displayName;
 - (id)initWithDictionary: (NSDictionary *)dic;
+- (NSString *)generateDisplayName:(NSString *)name;
 
 @end

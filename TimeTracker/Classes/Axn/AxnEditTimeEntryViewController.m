@@ -70,7 +70,7 @@
     
     if(useCurrentValues)
     {
-        NSLog(@"Using current values");
+        // NSLog(@"Using current values");
         hours = self.curHours;
         description = self.curDescription;
     }
@@ -381,7 +381,7 @@
 	NSError *error = nil;
     NSDictionary *jsonData = [self getJsonDataFromResponseString:[request responseString] error:&error];
     
-	if(jsonData == nil)
+	if(!jsonData)
 	{
 		NSLog(@"Entry edit save error: %@",[request responseString]);
         [self showAlert:@"Error" withMessage:@"Error saving changes."];
