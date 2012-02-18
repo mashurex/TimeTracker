@@ -1319,8 +1319,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Axian, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Axian, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mustafa Ashurex (GKWC8Q33W6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mustafa Ashurex (GKWC8Q33W6)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -1341,8 +1341,8 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "2018FEB2-6DA4-45F8-9F5B-964F14ED69D4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2097C68-E8D9-4517-9232-1D42A83714FE";
+				PROVISIONING_PROFILE = "40405B15-9925-4B60-B0B0-F81BB961128D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04AFD7C2-7F5F-4536-B03A-4B5C5A0BC56F";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1353,8 +1353,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Axian, Inc.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Axian, Inc.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Mustafa Ashurex (GKWC8Q33W6)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Mustafa Ashurex (GKWC8Q33W6)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -1369,8 +1369,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "2018FEB2-6DA4-45F8-9F5B-964F14ED69D4";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "D2097C68-E8D9-4517-9232-1D42A83714FE";
+				PROVISIONING_PROFILE = "40405B15-9925-4B60-B0B0-F81BB961128D";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "04AFD7C2-7F5F-4536-B03A-4B5C5A0BC56F";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 				VALIDATE_PRODUCT = YES;
@@ -1380,12 +1380,10 @@
 		1DBC3BF814D4A3BF007D8F4A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Axian, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeTracker/TimeTracker-Prefix.pch";
 				INFOPLIST_FILE = "TimeTracker/TimeTracker-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2018FEB2-6DA4-45F8-9F5B-964F14ED69D4";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -1394,12 +1392,10 @@
 		1DBC3BF914D4A3BF007D8F4A /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Axian, Inc.";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "TimeTracker/TimeTracker-Prefix.pch";
 				INFOPLIST_FILE = "TimeTracker/TimeTracker-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "2018FEB2-6DA4-45F8-9F5B-964F14ED69D4";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
