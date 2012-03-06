@@ -76,6 +76,8 @@
     self.thisWeekDates = [self getCurrentWeekDates];
     self.weekEntries = [[NSMutableDictionary alloc] initWithCapacity:7];
     
+    //self.tbvEntries.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bground.png"]];
+    
     if(!self.refreshHeaderView)
     {
         EGORefreshTableHeaderView *refresh = [[EGORefreshTableHeaderView alloc] 
@@ -477,8 +479,9 @@
 	float hours = [[dicDay objectForKey:@"hours"] floatValue];
 
 	cell.textLabel.text = [NSString stringWithFormat:@"%@", project.projectAbbrv];
+    // cell.textLabel.textColor = [UIColor grayColor];
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%2.2f hrs", hours];
-    
+    // cell.detailTextLabel.textColor = [UIColor whiteColor];
 	return cell;
 	
 }

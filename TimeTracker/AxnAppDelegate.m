@@ -25,7 +25,8 @@
 {
     self.settings = [[TTSettings alloc] init];
     [self.settings readSettings];
-    
+    [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bground.png"] forBarMetrics:UIBarMetricsDefault];
+    // [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"tab-bground.png"]];
     return YES;
 }
 							

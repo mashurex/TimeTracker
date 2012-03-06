@@ -31,11 +31,30 @@
     // Release any cached data, images, etc that aren't in use.
 }
 
+- (void)setPasswordFocus 
+{
+    [self.txtPassword becomeFirstResponder];
+}
+
 #pragma mark - View lifecycle
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Show Next button on keyboard
+    [self.txtUsername setReturnKeyType:UIReturnKeyNext];
+    // Next button sets focus on the password field
+    [self.txtUsername addTarget:self
+                         action:@selector(setPasswordFocus)
+               forControlEvents:UIControlEventEditingDidEndOnExit];
+    
+    // Show the Go button on keyboard
+    [self.txtPassword setReturnKeyType:UIReturnKeyGo];
+    // Fire off login process
+    [self.txtPassword addTarget:self
+                         action:@selector(buttonLogin_Pressed)
+               forControlEvents:UIControlEventEditingDidEndOnExit];
 }
 
 

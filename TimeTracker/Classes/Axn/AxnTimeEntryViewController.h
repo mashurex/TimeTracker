@@ -30,16 +30,16 @@
     UILabel *lblProjectBorder;
     
 	UILabel *lblTask;
-    UILabel *lblTaskBorder;
+    // UILabel *lblTaskBorder;
     
 	UILabel *lblFeature;
-    UILabel *lblFeatureBorder;
+    // UILabel *lblFeatureBorder;
     
 	UILabel *lblDescription;
     UILabel *lblDescriptionBorder;
     
 	UILabel *lblHours;
-    UILabel *lblHoursBorder;
+    // UILabel *lblHoursBorder;
     
     NSArray *projects;
 	
@@ -78,16 +78,16 @@
 @property(nonatomic, retain) IBOutlet UILabel *lblProjectBorder;
 
 @property(nonatomic, retain) IBOutlet UILabel *lblTask;
-@property(nonatomic, retain) IBOutlet UILabel *lblTaskBorder;
+// @property(nonatomic, retain) IBOutlet UILabel *lblTaskBorder;
 
 @property(nonatomic, retain) IBOutlet UILabel *lblFeature;
-@property(nonatomic, retain) IBOutlet UILabel *lblFeatureBorder;
+// @property(nonatomic, retain) IBOutlet UILabel *lblFeatureBorder;
 
 @property(nonatomic, retain) IBOutlet UILabel *lblDescription;
 @property(nonatomic, retain) IBOutlet UILabel *lblDescriptionBorder;
 
 @property(nonatomic, retain) IBOutlet UILabel *lblHours;
-@property(nonatomic, retain) IBOutlet UILabel *lblHoursBorder;
+// @property(nonatomic, retain) IBOutlet UILabel *lblHoursBorder;
 
 @property(nonatomic, retain) UIDatePicker *pickHours;
 @property(nonatomic, retain) UIPickerView *pickerView;

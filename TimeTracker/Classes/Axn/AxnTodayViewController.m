@@ -16,6 +16,7 @@
 @synthesize isReloading             = _isReloading;
 @synthesize selectedRow             = _selectedRow;
 @synthesize hasLoadedData           = _hasLoadedData;
+@synthesize btnAddNew               = _btnAddNew;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -54,6 +55,13 @@
         [self fetchEntryData];
     }
     
+    // Unselect the selected row if any
+    NSIndexPath* selection = [self.tbvEntries indexPathForSelectedRow];
+    if (selection)
+    {
+        [self.tbvEntries deselectRowAtIndexPath:selection animated:YES];
+    }
+    
     [super viewWillAppear:animated];
 }
 
@@ -66,6 +74,12 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     [backButton release];
+    
+    // Set the table view background to our pattern
+    // self.tbvEntries.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bground.png"]];
+    
+    // Set Add New button color to red
+    // [self.btnAddNew setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     
     self.entries = [[NSMutableArray alloc] initWithCapacity:1];
     self.hasLoadedData = NO;
@@ -99,6 +113,7 @@
     self.entries = nil;
     self.tbvEntries = nil;
     self.refreshHeaderView = nil;
+    self.btnAddNew = nil;
 }
 
 - (void)dealloc
@@ -106,6 +121,7 @@
     [_entries release];
     [_tbvEntries release];
     [_refreshHeaderView release];
+    [_btnAddNew release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -330,10 +346,7 @@
  */
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	if(section == 0)
-	{
-		return @"Today's Entries";
-	}
+	if(section == 0){ return @"Today's Entries"; }
 	return nil;
 }
 
@@ -353,13 +366,12 @@
 		cell = [[[UITableViewCell alloc]
 				 initWithStyle:UITableViewCellStyleSubtitle 
 				 reuseIdentifier:SimpleTableIdentifier] autorelease];
-        // cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	}
-	
-
 	
 	AxnTimeEntry *entry = [self.entries objectAtIndex:[indexPath row]];
 	cell.textLabel.text = [entry labelText];
+    // Set the label text to white
+    // cell.textLabel.textColor = [UIColor whiteColor];
     cell.detailTextLabel.text = [entry subtitleText];
 	
 	return cell;

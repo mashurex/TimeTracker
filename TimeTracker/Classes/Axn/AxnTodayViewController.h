@@ -29,6 +29,7 @@
     // Row that was selected for editing or deleting
 	NSUInteger                  selectedRow;
 	BOOL                        hasLoadedData;
+    UIButton                    *btnAddNew;
 }
 
 @property (nonatomic, retain)   NSMutableArray              *entries;
@@ -37,6 +38,7 @@
 @property (nonatomic, retain)   EGORefreshTableHeaderView   *refreshHeaderView;
 @property (nonatomic, assign)   BOOL                        isReloading;
 @property (nonatomic, assign)   BOOL                        hasLoadedData;
+@property (nonatomic, retain)   IBOutlet UIButton           *btnAddNew;
 
 - (void)doneLoadingTableViewData;
 - (void)fetchEntryData;

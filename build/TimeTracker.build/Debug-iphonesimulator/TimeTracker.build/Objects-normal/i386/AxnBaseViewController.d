@@ -1,0 +1,21 @@
+dependencies: \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/Axn/AxnBaseViewController.m \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/Axn/AxnBaseViewController.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/Axn/TTSettings.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/Axn/AxnProject.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/Axn/AxnFeature.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/Axn/AxnTask.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/ASI/ASIHTTPRequest.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/ASI/ASIHTTPRequestConfig.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/ASI/ASIHTTPRequestDelegate.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/ASI/ASIProgressDelegate.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/ASI/ASICacheDelegate.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/MBProgressHUD/MBProgressHUD.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/SBJson.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/SBJsonParser.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/SBJsonWriter.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/SBJsonStreamParser.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/SBJsonStreamParserAdapter.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/SBJsonStreamWriter.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/Classes/SBJson/NSObject+SBJson.h \
+  /Users/mashurex/Documents/TimeTracker/TimeTracker/TimeTracker/AxnAppDelegate.h

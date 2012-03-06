@@ -1,0 +1,154 @@
+10
+
+dir
+0
+https://soulstorm@subversion.assembla.com/svn/dreamserve/branches/tt-support/deps/three20/Build/Products/three20/Three20UINavigator
+https://soulstorm@subversion.assembla.com/svn/dreamserve
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cd28c33d-eb6f-4742-8957-39de6473f1b7
+
+Three20UINavigator+Additions.h
+file
+
+
+
+add
+
+TTNavigatorDelegate.h
+file
+
+
+
+add
+
+TTBaseNavigator.h
+file
+
+
+
+add
+
+TTNavigatorViewController.h
+file
+
+
+
+add
+
+TTURLObject.h
+file
+
+
+
+add
+
+TTBaseNavigationController.h
+file
+
+
+
+add
+
+TTURLMap.h
+file
+
+
+
+add
+
+TTURLAction.h
+file
+
+
+
+add
+
+TTURLPattern.h
+file
+
+
+
+add
+
+TTNavigatorRootContainer.h
+file
+
+
+
+add
+
+TTGlobalNavigatorMetrics.h
+file
+
+
+
+add
+
+UIViewController+TTNavigator.h
+file
+
+
+
+add
+
+TTNavigatorPersistenceMode.h
+file
+
+
+
+add
+
+TTNavigationMode.h
+file
+
+
+
+add
+
+TTURLGeneratorPattern.h
+file
+
+
+
+add
+
+Three20UINavigator.h
+file
+
+
+
+add
+
+TTURLNavigatorPattern.h
+file
+
+
+
+add
+
+private
+dir
+
+
+
+add
+

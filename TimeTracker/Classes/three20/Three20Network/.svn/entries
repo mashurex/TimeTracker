@@ -1,0 +1,140 @@
+10
+
+dir
+0
+https://soulstorm@subversion.assembla.com/svn/dreamserve/branches/tt-support/deps/three20/Build/Products/three20/Three20Network
+https://soulstorm@subversion.assembla.com/svn/dreamserve
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cd28c33d-eb6f-4742-8957-39de6473f1b7
+
+TTURLResponse.h
+file
+
+
+
+add
+
+TTURLImageResponse.h
+file
+
+
+
+add
+
+TTURLCache.h
+file
+
+
+
+add
+
+TTUserInfo.h
+file
+
+
+
+add
+
+TTModelDelegate.h
+file
+
+
+
+add
+
+TTURLRequestModel.h
+file
+
+
+
+add
+
+TTModel.h
+file
+
+
+
+add
+
+TTURLRequestDelegate.h
+file
+
+
+
+add
+
+TTErrorCodes.h
+file
+
+
+
+add
+
+TTGlobalNetwork.h
+file
+
+
+
+add
+
+TTURLRequest.h
+file
+
+
+
+add
+
+TTURLDataResponse.h
+file
+
+
+
+add
+
+Three20Network.h
+file
+
+
+
+add
+
+private
+dir
+
+
+
+add
+
+TTURLRequestCachePolicy.h
+file
+
+
+
+add
+
+TTURLRequestQueue.h
+file
+
+
+
+add
+

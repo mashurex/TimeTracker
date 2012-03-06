@@ -197,6 +197,8 @@
 		SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
 		// Response string from the HTTP request
 		NSString *responseString = [request responseString];		
+        // NSLog(@"Feature response: %@", responseString);
+        
 		// Json data as a dictionary
 		NSDictionary *responseData = [jsonParser objectWithString:responseString error:&error];
 		
@@ -250,6 +252,8 @@
 		SBJsonParser *jsonParser = [[SBJsonParser new] autorelease];
 		// Response string from the HTTP request
 		NSString *responseString = [request responseString];		
+        // NSLog(@"Task response: %@", responseString);
+        
 		// Json data as a dictionary
 		NSDictionary *responseData = [jsonParser objectWithString:responseString error:&error];
 		
@@ -268,7 +272,7 @@
 				AxnTask *entry = [[AxnTask alloc] init];
 				entry.taskId = [[entryDic objectForKey:@"Key"] intValue];
 				entry.taskName = [entryDic objectForKey:@"Value"];
-				
+				// TODO: Service does not return hours left
 				[tasksArray addObject:entry];
 				[entry release];		
 			}

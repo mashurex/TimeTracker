@@ -1,0 +1,196 @@
+10
+
+dir
+0
+https://soulstorm@subversion.assembla.com/svn/dreamserve/branches/tt-support/deps/three20/Build/Products/three20/Three20Core
+https://soulstorm@subversion.assembla.com/svn/dreamserve
+add
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+cd28c33d-eb6f-4742-8957-39de6473f1b7
+
+Three20Core+Additions.h
+file
+
+
+
+add
+
+TTDebug.h
+file
+
+
+
+add
+
+TTExtensionInfo.h
+file
+
+
+
+add
+
+TTMarkupStripper.h
+file
+
+
+
+add
+
+TTGlobalCoreLocale.h
+file
+
+
+
+add
+
+NSStringAdditions.h
+file
+
+
+
+add
+
+NSObjectAdditions.h
+file
+
+
+
+add
+
+TTExtensionAuthor.h
+file
+
+
+
+add
+
+Three20.h
+file
+
+
+
+add
+
+NSDataAdditions.h
+file
+
+
+
+add
+
+TTDebugFlags.h
+file
+
+
+
+add
+
+TTExtensionLoader.h
+file
+
+
+
+add
+
+TTCorePreprocessorMacros.h
+file
+
+
+
+add
+
+NSDateAdditions.h
+file
+
+
+
+add
+
+NSArrayAdditions.h
+file
+
+
+
+add
+
+Three20Version.h
+file
+
+
+
+add
+
+NSMutableDictionaryAdditions.h
+file
+
+
+
+add
+
+TTEntityTables.h
+file
+
+
+
+add
+
+TTGlobalCore.h
+file
+
+
+
+add
+
+TTGlobalCorePaths.h
+file
+
+
+
+add
+
+Three20Core.h
+file
+
+
+
+add
+
+TTGlobalCoreRects.h
+file
+
+
+
+add
+
+private
+dir
+
+
+
+add
+
+NSMutableArrayAdditions.h
+file
+
+
+
+add
+

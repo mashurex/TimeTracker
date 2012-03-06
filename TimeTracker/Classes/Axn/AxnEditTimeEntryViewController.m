@@ -18,13 +18,13 @@
 @synthesize lblProject          = _lblProject;
 @synthesize lblProjectBorder    = _lblProjectBorder;
 @synthesize lblTask             = _lblTask;
-@synthesize lblTaskBorder       = _lblTaskBorder;
+// @synthesize lblTaskBorder       = _lblTaskBorder;
 @synthesize lblFeature          = _lblFeature;
-@synthesize lblFeatureBorder    = _lblFeatureBorder;
+// @synthesize lblFeatureBorder    = _lblFeatureBorder;
 @synthesize lblDescription      = _lblDescription;
 @synthesize lblDescriptionBorder = _lblDescriptionBorder;
 @synthesize lblHours            = _lblHours;
-@synthesize lblHoursBorder      = _lblHoursBorder;
+// @synthesize lblHoursBorder      = _lblHoursBorder;
 @synthesize pickHours           = _pickHours;
 @synthesize wereChangesMade     = _wereChangesMade;
 @synthesize curHours            = _curHours;
@@ -52,7 +52,7 @@
 {
     label.layer.borderColor = [UIColor blackColor].CGColor;
     label.layer.borderWidth = 1.0;
-    label.layer.cornerRadius = 4;
+    label.layer.cornerRadius = 8;
 }
 
 // Applies a tap gesture recognizer that will fire the action defined in the selector
@@ -88,25 +88,25 @@
     self.lblProject.text = self.timeEntry.projectName;
     
     //[self applyTapGestureRecognizer:self.lblFeature action:@selector(lblFeature_Pressed)];
-	[self applyRadiusBorder:self.lblFeatureBorder];
+	// [self applyRadiusBorder:self.lblFeatureBorder];
     
-    self.lblFeatureBorder.text = @"";
+    // self.lblFeatureBorder.text = @"";
     self.lblFeature.text = self.timeEntry.featureName;
     
     //[self applyTapGestureRecognizer:self.lblTask action:@selector(lblTask_Pressed)];
-	[self applyRadiusBorder:self.lblTaskBorder];
+	// [self applyRadiusBorder:self.lblTaskBorder];
     
-    self.lblTaskBorder.text = @"";
+    // self.lblTaskBorder.text = @"";
     self.lblTask.text = self.timeEntry.taskName;
     
     [self applyTapGestureRecognizer:self.lblHours action:@selector(lblHours_Pressed)];
-	[self applyRadiusBorder:self.lblHoursBorder];
+	// [self applyRadiusBorder:self.lblHoursBorder];
     
     
     [self applyTapGestureRecognizer:self.lblDescription action:@selector(lblDescription_Pressed)];
 	[self applyRadiusBorder:self.lblDescriptionBorder];
     
-    self.lblHoursBorder.text = @"";
+    // self.lblHoursBorder.text = @"";
     self.lblDescriptionBorder.text = @"";
     [self setLabelTexts:NO];
 }
@@ -185,8 +185,8 @@
     self.lblDescription = nil;
     self.lblHours = nil;
     self.lblProjectBorder = nil;
-    self.lblTaskBorder = nil;
-    self.lblFeatureBorder = nil;
+    // self.lblTaskBorder = nil;
+    // self.lblFeatureBorder = nil;
     self.lblDescriptionBorder = nil;
     self.lblHours = nil;
     self.pickHours = nil;
@@ -202,10 +202,10 @@
     [_lblDescription release];
     [_lblHours release];
     [_lblProjectBorder release];
-    [_lblTaskBorder release];
-    [_lblFeatureBorder release];
+    // [_lblTaskBorder release];
+    // [_lblFeatureBorder release];
     [_lblDescriptionBorder release];
-    [_lblHoursBorder release];
+    // [_lblHoursBorder release];
     [_pickHours release];
     [_curDescription release];
     [super dealloc];

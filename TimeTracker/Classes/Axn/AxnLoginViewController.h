@@ -21,5 +21,6 @@
 
 -(IBAction)buttonLogin_Pressed;
 -(IBAction)resignAllResponders:(id)sender;
+-(void)setPasswordFocus;
 
 @end
