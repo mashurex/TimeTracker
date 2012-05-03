@@ -216,14 +216,14 @@
 	return [df stringFromDate:date];
 }
 
-#pragma mark Project Entry Gathering
+#pragma mark - Project Entry Gathering
 
 - (void)fetchEntriesForDate: (NSDate *)date
 {
 	NSString *strDate = [self convertDateToRequestString:date];
 	NSDictionary *requestParams = [[NSDictionary alloc] initWithObjectsAndKeys:strDate, @"date", nil];
 	NSURL *url =[NSURL URLWithString: sGetEntriesUrl];
-	// NSLog(@"Fetching entry for date: %@", strDate);
+	AxnDbgLog(@"Fetching entry for date: %@", strDate);
 	ASIHTTPRequest *request = [self createPostRequest:url withParameters:requestParams];
 	[request setDelegate:self];
 	[request setTag: kRequest_FetchEntriesTag];
@@ -240,13 +240,8 @@
 	}
 }
 
-#pragma mark -
-#pragma mark ASIHTTPRequest Delegate Methods
+#pragma mark - ASIHTTPRequest Delegate Methods
 
-/**
- * Validation form post request finished
- * @param ASIHTTPRequest request - The request object
- */
 - (void)requestFinished:(ASIHTTPRequest *)request
 {	
 	// Error object for string to json process
@@ -267,10 +262,10 @@
         
         if(!dData)
         {
-            NSLog(@"WeeklyViewController: requestFinished - No or invalid data returned.");
+            AxnDetailLog(@"No or invalid data returned.");
             if(error)
             {
-                NSLog(@"WeeklyViewController: requestFinished - Error: %@", [error localizedDescription]);
+                AxnDetailLog(@"Error: %@", [error localizedDescription]);
             }
         }
         else 
@@ -296,7 +291,7 @@
                 
                 if(!entryDate)
                 {
-                    // NSLog(@"WVC: requestFinished - Setting entryDate to: %@", strEntryDate);
+                    AxnDbgDtlLog(@"Setting entryDate to: %@", strEntryDate);
                     dateKeyString = strEntryDate;
                 }
                 
@@ -311,7 +306,7 @@
                 if(existingProject == nil)
                 {
                     // No project was found, push in a new one
-                    //NSLog(@"Adding project (%@) with %2.1f hours.", proj, hours);
+                    AxnDbgDtlLog(@"Adding project (%@) with %2.1f hours.", proj, hours);
                     [dictProjects setObject:proj forKey:strProjectId];
                     [dictHours setObject:[NSNumber numberWithFloat:hours] forKey:strProjectId];
                 }
@@ -319,7 +314,7 @@
                 {
                     // Project was found, add hours to what is already in there
                     float existingHours = [[dictHours objectForKey:strProjectId] floatValue] + hours;
-                    //NSLog(@"Found project (%@) already, adding %2.1f to existing %2.1f hours.", proj, hours, existingHours);				
+                    AxnDbgDtlLog(@"Found project (%@) already, adding %2.1f to existing %2.1f hours.", proj, hours, existingHours);				
                     [dictHours setObject:[NSNumber numberWithFloat:existingHours] forKey:strProjectId]; 
                 }
                 
@@ -391,8 +386,7 @@
     }
 }
 
-#pragma mark -
-#pragma mark UIScrollViewDelegate Methods
+#pragma mark - UIScrollViewDelegate Methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {		
@@ -410,8 +404,7 @@
 	return (NSArray *)[self.weekEntries objectForKey:key];
 }
 
-#pragma mark -
-#pragma mark Table Methods
+#pragma mark - Table Methods
 
 /**
  * Return the number of sections for the table view
@@ -486,8 +479,7 @@
 	
 }
 
-#pragma mark -
-#pragma mark EGORefreshTableHeaderDelegate Methods
+#pragma mark - EGORefreshTableHeaderDelegate Methods
 
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view
 {
@@ -505,8 +497,7 @@
 	return [NSDate date]; 
 }
 
-#pragma mark -
-#pragma mark EGORefreshTableHeaderView 
+#pragma mark - EGORefreshTableHeaderView 
 
 - (void)reloadTableViewDataSource
 {

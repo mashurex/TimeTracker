@@ -41,16 +41,17 @@
     if(self.comingFromLogin)
     {
         self.comingFromLogin = NO;
-        
+
         self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.hud.delegate = self;
         self.hud.labelText = sFetchingProjectsLabelText;
         self.hud.removeFromSuperViewOnHide = YES;    
         [self.hud show: YES];
-
+        // TODO: Move this out of startup
         ASIHTTPRequest *requestProjects = [self createFetchProjectsRequest];
         [requestProjects setDelegate:self];
         [requestProjects startAsynchronous];
+ 
     }
 }
 
@@ -136,8 +137,7 @@
     if(!response)
     {        
 
-        NSLog(@"AxnStartupViewController requestFinished error: %@", [request responseString]);
-        
+        AxnDetailLog(@"Request error: %@", [request responseString]);
         
         if(request.tag == kRequest_AuthenticateTag)
         {
@@ -154,6 +154,7 @@
             [self hideHud:0.75];
             [self performSegueWithIdentifier:sTabBarSegue sender:self];
         }
+        
         return;
     }
     
@@ -163,15 +164,15 @@
         BOOL isValid = [[response objectForKey:sTimeTrackerDataDicKey] boolValue];
         if(isValid)
         {
-            // NSLog(@"Startup: logged in user, fetching projects.");
-            
             // Login done, change HUD text to fetching projects
             self.hud.labelText = @"Loading...";
             self.hud.detailsLabelText = sFetchingProjectsLabelText;
             
             // Valid login, set flag and gather user projects/tasks
             self.ttSettings.hasLoggedIn = YES;
-            
+            [self performSegueWithIdentifier:sTabBarSegue sender:self];
+
+            // TODO: Move this out of startup
             ASIHTTPRequest *requestProjects = [self createFetchProjectsRequest];
             [requestProjects setDelegate:self];
             [requestProjects startAsynchronous];
@@ -211,7 +212,6 @@
 		}
         
         // Success - Hide the hud and segue to the rest of the app
-        // NSLog(@"Startup: done, segue to main app");
 		[self hideLoginHudAfterSuccess];
 		self.ttSettings.axianProjects = (NSArray *)projectsArray;
 		[projectsArray release];

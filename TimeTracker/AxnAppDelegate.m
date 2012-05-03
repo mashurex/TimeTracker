@@ -23,6 +23,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    AxnDbgLog(@"Debug logging is activated.");
+    
     self.settings = [[TTSettings alloc] init];
     [self.settings readSettings];
     [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"nav-bground.png"] forBarMetrics:UIBarMetricsDefault];

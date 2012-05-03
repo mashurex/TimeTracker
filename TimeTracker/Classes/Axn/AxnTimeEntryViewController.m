@@ -18,13 +18,10 @@
 @synthesize lblProject          = _lblProject;
 @synthesize lblProjectBorder    = _lblProjectBorder;
 @synthesize lblTask             = _lblTask;
-// @synthesize lblTaskBorder       = _lblTaskBorder;
 @synthesize lblFeature          = _lblFeature;
-// @synthesize lblFeatureBorder    = _lblFeatureBorder;
 @synthesize lblDescription      = _lblDescription;
 @synthesize lblDescriptionBorder = _lblDescriptionBorder;
 @synthesize lblHours            = _lblHours;
-// @synthesize lblHoursBorder      = _lblHoursBorder;
 
 @synthesize wereChangesMade     = _wereChangesMade;
 @synthesize pickHours           = _pickHours;
@@ -81,21 +78,15 @@
     self.lblProject.text = @"--";
     
     [self applyTapGestureRecognizer:self.lblFeature action:@selector(lblFeature_Pressed)];
-	// [self applyRadiusBorder:self.lblFeatureBorder];
-    
-    // self.lblFeatureBorder.text = @"";
+
     self.lblFeature.text = @"--";
     
     [self applyTapGestureRecognizer:self.lblTask action:@selector(lblTask_Pressed)];
-	// [self applyRadiusBorder:self.lblTaskBorder];
-    
-    // self.lblTaskBorder.text = @"";
+
     self.lblTask.text = @"--";
     
     [self applyTapGestureRecognizer:self.lblHours action:@selector(lblHours_Pressed)];
-	// [self applyRadiusBorder:self.lblHoursBorder];
-    
-    // self.lblHoursBorder.text = @"";
+
     self.lblHours.text = @"--";
     
     [self applyTapGestureRecognizer:self.lblDescription action:@selector(lblDescription_Pressed)];
@@ -126,20 +117,7 @@
 - (void)viewDidLoad
 {        
     [super viewDidLoad];
-    
-    // Create a save button and put it in the naviation bar
-    
-    UIImage *btnImg = [[UIImage imageNamed:@"nav-btn.png"] 
-                       resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
-    UIImage *btnCancelImg = [[UIImage imageNamed:@"cancel-nav-btn.png"]
-                       resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 5)];
-    
-    [[UIBarButtonItem appearance] setBackgroundImage:btnImg forState:UIControlStateNormal 
-                                          barMetrics:UIBarMetricsDefault];
-    
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:btnCancelImg 
-                                forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
+        
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc]
                                    initWithTitle: @"Save"
                                    style:UIBarButtonItemStyleBordered
@@ -176,8 +154,6 @@
     self.lblDescription = nil;
     self.lblHours = nil;
     self.lblProjectBorder = nil;
-    // self.lblTaskBorder = nil;
-    // self.lblFeatureBorder = nil;
     self.lblDescriptionBorder = nil;
     self.lblHours = nil;
     self.pickHours = nil;
@@ -197,10 +173,7 @@
     [_lblDescription release];
     [_lblHours release];
     [_lblProjectBorder release];
-    // [_lblTaskBorder release];
-    // [_lblFeatureBorder release];
     [_lblDescriptionBorder release];
-    // [_lblHoursBorder release];
     [_pickHours release];
     [_curProject release];
     [_curFeature release];
@@ -482,7 +455,7 @@
 	}
 	else
 	{
-		NSLog(@"Unknown pickerview tag: %i", self.pickerView.tag);
+		AxnDetailLog(@"Unknown pickerview tag: %i", self.pickerView.tag);
 		return @"--";
 	}
 }
@@ -555,7 +528,7 @@
 	else if(self.pickerView.tag == kTaskPickerTag)
 	{
 		AxnTask *t = [self.curFeature.featureTasks objectAtIndex: row];
-        NSLog(@"Hours left in selected task: %2.2f", t.hoursLeft);
+        AxnDbgDtlLog(@"Hours left in selected task: %2.2f", t.hoursLeft);
 		if(self.curTask != nil)
 		{
 			if(self.curTask.taskId != t.taskId)
@@ -601,12 +574,12 @@
     
 	if(!jsonData)
 	{
-		NSLog(@"Error saving time entry: %@",[request responseString]);
+		AxnDetailLog(@"Error saving time entry: %@",[request responseString]);
         [self showAlert:@"Error" withMessage:@"Error saving entry."];
 	}
 	else 
 	{
-        NSLog(@"Response: %@", [request responseString]);
+        AxnDbgDtlLog(@"Response: %@", [request responseString]);
         NSDictionary *data = [jsonData objectForKey:sTimeTrackerDataDicKey];
         if(!data)
         {

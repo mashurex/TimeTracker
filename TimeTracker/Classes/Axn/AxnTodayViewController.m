@@ -75,6 +75,22 @@
     self.navigationItem.backBarButtonItem = backButton;
     [backButton release];
     
+    
+    // Create a save button and put it in the naviation bar
+    
+    UIImage *btnImg = [[UIImage imageNamed:@"nav-btn.png"] 
+                       resizableImageWithCapInsets:UIEdgeInsetsMake(0, 5, 0, 5)];
+    UIImage *btnCancelImg = [[UIImage imageNamed:@"cancel-nav-btn.png"]
+                             resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 5)];
+    
+    [[UIBarButtonItem appearance] setBackgroundImage:btnImg forState:UIControlStateNormal 
+                                          barMetrics:UIBarMetricsDefault];
+    
+    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:btnCancelImg 
+                                                      forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    
+
     // Set the table view background to our pattern
     // self.tbvEntries.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bground.png"]];
     

@@ -18,13 +18,10 @@
 @synthesize lblProject          = _lblProject;
 @synthesize lblProjectBorder    = _lblProjectBorder;
 @synthesize lblTask             = _lblTask;
-// @synthesize lblTaskBorder       = _lblTaskBorder;
 @synthesize lblFeature          = _lblFeature;
-// @synthesize lblFeatureBorder    = _lblFeatureBorder;
 @synthesize lblDescription      = _lblDescription;
 @synthesize lblDescriptionBorder = _lblDescriptionBorder;
 @synthesize lblHours            = _lblHours;
-// @synthesize lblHoursBorder      = _lblHoursBorder;
 @synthesize pickHours           = _pickHours;
 @synthesize wereChangesMade     = _wereChangesMade;
 @synthesize curHours            = _curHours;
@@ -81,32 +78,20 @@
 
 - (void)setupFormLabels
 {
-    //[self applyTapGestureRecognizer:self.lblProject action:@selector(lblProject_Pressed)];
 	[self applyRadiusBorder:self.lblProjectBorder];
     
     self.lblProjectBorder.text = @"";
     self.lblProject.text = self.timeEntry.projectName;
     
-    //[self applyTapGestureRecognizer:self.lblFeature action:@selector(lblFeature_Pressed)];
-	// [self applyRadiusBorder:self.lblFeatureBorder];
-    
-    // self.lblFeatureBorder.text = @"";
     self.lblFeature.text = self.timeEntry.featureName;
     
-    //[self applyTapGestureRecognizer:self.lblTask action:@selector(lblTask_Pressed)];
-	// [self applyRadiusBorder:self.lblTaskBorder];
-    
-    // self.lblTaskBorder.text = @"";
     self.lblTask.text = self.timeEntry.taskName;
     
     [self applyTapGestureRecognizer:self.lblHours action:@selector(lblHours_Pressed)];
-	// [self applyRadiusBorder:self.lblHoursBorder];
-    
-    
+	
     [self applyTapGestureRecognizer:self.lblDescription action:@selector(lblDescription_Pressed)];
 	[self applyRadiusBorder:self.lblDescriptionBorder];
     
-    // self.lblHoursBorder.text = @"";
     self.lblDescriptionBorder.text = @"";
     [self setLabelTexts:NO];
 }
