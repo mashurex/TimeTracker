@@ -206,6 +206,8 @@
 	[actionSheet setFrame: CGRectMake(0,117,320,383)];
 }
 
+
+
 - (IBAction)btnSaveSettings_Pressed:(id)sender
 {
     if([self isValidSettingsInput])
@@ -221,6 +223,7 @@
             self.ttSettings.doReminder = YES;
             self.ttSettings.reminderDate = self.reminderDate;
             
+            /* 
             Class cls = NSClassFromString(@"UILocalNotification");
             if (cls != nil) {
                 
@@ -236,6 +239,8 @@
                 [[UIApplication sharedApplication] scheduleLocalNotification:notif];
                 [notif release];
             }
+            */
+            [self setWeekdayUILocalNotifcations:[self.datePicker date]];
         }
         else
         {
@@ -245,6 +250,45 @@
         
         [self.ttSettings saveSettings];
         [self showAlert:@"Success" withMessage:@"Settings saved."];
+    }
+}
+
+- (NSDate*) getDateForAlarmWithTime:(NSDate *)alarmTime forDay:(int)weekDay
+{
+    NSDate *today = [[[NSDate alloc] init] autorelease];
+    NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
+    [calendar setLocale:[NSLocale currentLocale]];
+    
+    NSDateComponents *alarmComponents = [calendar components: NSHourCalendarUnit | NSMinuteCalendarUnit fromDate:alarmTime];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit | NSWeekCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit fromDate:today];
+    [components setWeekday: weekDay];
+    [components setHour:[alarmComponents hour]];
+    [components setMinute:[alarmComponents minute]];
+    [components setSecond:0];
+    
+    return [calendar dateFromComponents: components];
+}
+
+- (void) setWeekdayUILocalNotifcations:(NSDate *)alarmTime
+{
+    // NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    for(int i = 2; i <=6; i++)
+    {
+        UILocalNotification *localNotifcation = [[UILocalNotification alloc] init];
+        if(localNotifcation == nil){ return; }
+
+        // localNotifcation.repeatCalendar = gregorian;
+        NSDate *date = [self getDateForAlarmWithTime:alarmTime forDay:i];
+        localNotifcation.fireDate = date;
+        localNotifcation.timeZone = [NSTimeZone defaultTimeZone];
+        localNotifcation.alertBody = @"Don't forget your time entry!";
+        localNotifcation.alertAction = @"Do it now";
+        localNotifcation.soundName = UILocalNotificationDefaultSoundName;
+        localNotifcation.repeatInterval = NSWeekCalendarUnit;
+        
+        NSLog(@"Setting notification for: %@", date);
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotifcation];
+        [localNotifcation release];
     }
 }
 

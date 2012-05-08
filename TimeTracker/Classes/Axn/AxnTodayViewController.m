@@ -212,6 +212,7 @@
 
 	NSURL *url = [NSURL URLWithString: sGetEntriesUrl];
     ASIHTTPRequest *request = [self createPostRequest:url withParameters:params];
+    NSLog(@"Fetching entries from %@", sGetEntriesUrl);
     [request setDelegate: self];
 	[request setTag: kRequest_FetchEntriesTag];
 	[request startAsynchronous];
@@ -246,7 +247,7 @@
 {	
 	// Error object for containing parsing error
 	NSError *error = nil;    
-    // NSLog(@"Response finished: %@", [request responseString]);
+    NSLog(@"Response finished: %@", [request responseString]);
     NSDictionary *jsonData = [self getJsonDataFromResponseString:[request responseString] error:&error];
 	if(!jsonData)
 	{

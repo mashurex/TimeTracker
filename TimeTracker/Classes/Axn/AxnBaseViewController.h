@@ -16,7 +16,7 @@
 #define sTimeTrackerDataDicKey  @"d"
 #define sNullDataResponse   @"{\"d\":null}"
 
-#define sBaseTimeTrackerUrl @"https://ttstage.axian.com"
+#define sBaseTimeTrackerUrl @"https://timetracker.axian.com"
 #define sAuthenticateUrl    sBaseTimeTrackerUrl "/webservices/login.asmx/Authenticate"
 #define sGetProjectsUrl     sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetProjects"
 #define sGetFeaturesUrl     sBaseTimeTrackerUrl "/webservices/timeentryservice.asmx/GetFeatures"

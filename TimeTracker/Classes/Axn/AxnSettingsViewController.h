@@ -58,5 +58,6 @@
 - (void)showUserIsValid;
 - (void)showUserIsInvalid;
 - (void)hideValidatingLabels;
-
+- (NSDate*)getDateForAlarmWithTime:(NSDate *)alarmTime forDay:(int)day;
+- (void)setWeekdayUILocalNotifcations:(NSDate *)alarmTime;
 @end
